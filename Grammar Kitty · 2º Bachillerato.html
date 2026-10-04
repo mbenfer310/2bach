@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Grammar Kitty · 2º Bachillerato</title>
+<style>
+:root{--bg:#fdf2f8;--card:#fff;--tx:#3b1f4d;--mu:#7a5f8c;--p:#9333ea;--k:#ec4899;--ok:#16a34a;--ko:#e11d48;--ln:#f0d9f5;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#1e1030;--card:#2a1842;--tx:#f5e9ff;--mu:#c4a9d9;--ln:#4a2d6b}}
+:root[data-theme=dark]{--bg:#1e1030;--card:#2a1842;--tx:#f5e9ff;--mu:#c4a9d9;--ln:#4a2d6b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
+#app{max-width:760px;margin:0 auto;padding:14px}
+header{display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,#9333ea,#ec4899);color:#fff;border-radius:18px;padding:10px 14px;margin-bottom:14px}
+header h1{font-size:18px;margin:0;flex:1}
+button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:10px 16px;font-weight:600;background:linear-gradient(135deg,#9333ea,#ec4899);color:#fff}
+button.s{background:var(--ln);color:var(--tx)}header button{background:#ffffff33;padding:6px 12px}
+button:disabled{opacity:.5}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:18px;padding:16px;margin-bottom:12px}
+input{font:inherit;width:100%;padding:11px;border-radius:10px;border:2px solid var(--ln);background:var(--bg);color:var(--tx);margin:4px 0 10px}
+input:focus{outline:0;border-color:var(--p)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.bar{height:12px;background:var(--ln);border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,#9333ea,#ec4899)}
+.bub{background:var(--ln);border-radius:14px;padding:8px 12px;flex:1;min-width:150px}
+.lv{display:flex;gap:12px;align-items:center}.lv .n{font-size:26px;font-weight:800;width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#9333ea,#ec4899);color:#fff}
+.lock{opacity:.55}.tag{font-size:12px;padding:2px 9px;border-radius:9px;background:var(--ln)}
+.ok{color:var(--ok)}.ko{color:var(--ko)}.mu{color:var(--mu);font-size:14px}
+.blank{border-bottom:3px solid var(--k);padding:0 18px}
+.q{font-size:20px;margin:8px 0 14px}
+.rv{border-top:1px solid var(--ln);padding:7px 0;font-size:15px}
+.big{font-size:44px;font-weight:800;background:linear-gradient(135deg,#9333ea,#ec4899);-webkit-background-clip:text;background-clip:text;color:transparent}
+.rep{border:3px solid transparent;background:linear-gradient(var(--card),var(--card)) padding-box,linear-gradient(135deg,#9333ea,#ec4899) border-box}
+.rb{display:grid;grid-template-columns:110px 1fr 56px;gap:8px;align-items:center;margin:8px 0}
+@media print{header,.noprint{display:none!important}body{background:#fff;color:#222}.card{break-inside:avoid}}
+</style></head><body><div id="app"></div>
+<script>
+const Q={1:[
+["Emily ___ (go) mountain biking at weekends.","goes"],
+["What was she ___ (wear) when you saw her at the party?","wearing"],
+["I ___ (not remember) what she was wearing.","don't remember"],
+["Where did you ___ (take) these photos?","take"],
+["I ___ (enter) them in a photo contest tomorrow. (arrangement)","am entering"],
+["Is the doctor ___ (see) a patient now?","seeing"],
+["No, he ___ (leave) a few minutes ago.","left"],
+["Why are you ___ (wait) outside her office?","waiting"],
+["I ___ (want) to ask her a question before I leave.","want"],
+["I ___ (think) about the maths exam right now.","am thinking"],
+["I ___ (not think) I did very well in it.","don't think"],
+["Today we ___ (not come) home until later.","aren't coming"],
+["The coach ___ (want) our team to practise.","wants"],
+["We ___ (walk) in the park when we heard noises.","were walking"],
+["Suddenly, you ___ (see) a strange creature.","see"],
+["Someone ___ (film) you for the TV programme.","is filming"],
+["The show ___ (begin) in 2000 in Quebec.","began"],
+["Actors played pranks while people ___ (walk) by.","were walking"],
+["Most people ___ (laugh) when they found out it was a joke.","laughed"],
+["People ___ (not talk) on Just for Laughs: Gags.","don't talk"]],
+2:[
+["They met a year ago and they ___ (be) together since then.","have been"],
+["How long have they ___ (know) each other?","known"],
+["Until yesterday, I had never ___ (fly) before.","flown"],
+["I have never ___ (taste) Polish food.","tasted"],
+["She left the party because she ___ (promise) to return the car by midnight.","had promised"],
+["Dinner isn't ready. I ___ (prepare) it yet.","haven't prepared"],
+["Bletchley Park ___ (receive) a lot of attention in recent years.","has received"],
+["Until the 1970s, the people who ___ (work) there kept it a secret.","had worked"],
+["Nobody knew that their success ___ (help) England win the war.","had helped"],
+["The Nazis ___ (build) the Enigma machine before the war.","had built"],
+["After the teams ___ (break) the code in 1940, they sent information to the army.","had broken"],
+["In 1940 they ___ (send) important information to the army.","sent"],
+["Thousands of people ___ (visit) the museum since it opened.","have visited"],
+["Thousands have visited it since it ___ (open) in 1993.","opened"],
+["I missed my bus. The lesson ___ (start) by the time I arrived.","had started"],
+["It's official! I finally ___ (pass) my driving test.","have passed|passed"],
+["I ___ never ___ (receive) such terrible service. (write the two words)","have never received|had never received"],
+["They ___ (not know) about each other until yesterday.","hadn't known"],
+["Don't you recognise me? I'm sure we ___ (meet) before.","have met"],
+["Why are you leaving? The party ___ (not finish) yet.","hasn't finished"]],
+3:[
+["I can't join you tonight. I ___ (study) for an exam. (plan)","am studying|am going to study"],
+["Watch out! You ___ (fall) off the chair.","are going to fall"],
+["I hope you ___ (have) a good time at the party.","will have"],
+["Good luck in the exam. We ___ (think) about you.","will be thinking"],
+["Don't call before noon. I ___ (not wake up) before then.","won't have woken up"],
+["Do you think they will already ___ (eat)? (2 words: have + verb)","have eaten"],
+["At this time tomorrow, we ___ (enjoy) the weather in California.","will be enjoying"],
+["Will you still be ___ (study) when I come home tonight?","studying"],
+["I hope I ___ (receive) a message from her by the end of the day.","will have received"],
+["Next month, we ___ (know) each other for over ten years.","will have known"],
+["Did you forget your lunch? Don't worry – I ___ (share) mine.","will share"],
+["Move out of the way! The car ___ (hit) you!","is going to hit"],
+["We ___ (lie) on the beach at this time tomorrow.","will be lying|are going to be lying"],
+["Ladies and gentlemen, the film ___ (start) in a few minutes.","will start|is going to start|starts"],
+["Hurry, or we ___ (be) late.","will be"],
+["Hopefully, I ___ (have) a car by the time I'm 25.","will have|will have had"],
+["At this time tomorrow, I ___ (fly) to Tuscany.","will be flying"],
+["In the mornings, we ___ (study) with a local chef.","will be studying|are going to study|are studying"],
+["Hopefully, you ___ (learn) a lot by the time you come back.","will have learned|will have learnt"],
+["I ___ (invite) you for a meal. It's a promise.","will invite|am going to invite"]],
+4:[
+["Yesterday was the first time I met Tom. → Until yesterday, I ___ Tom. (never / meet)","had never met"],
+["They left a few minutes ago. → They have just ___. (leave)","left"],
+["I still owe him money. → I ___ him back yet. (pay, negative)","haven't paid"],
+["I stopped smoking when I was 20. → I haven't smoked ___ I was 20.","since"],
+["My girlfriend was angry because I ___ her birthday. (forget)","had forgotten"],
+["I arrived late. → The lesson ___ when I arrived. (start)","had started"],
+["Their arrival time is in an hour. → They ___ in an hour. (arrive)","are arriving"],
+["Megan isn't interested in fashion. → Megan doesn't ___ fashion.","like"],
+["During our climb, we saw many flowers. → We saw flowers ___ we were climbing.","while"],
+["What was her opinion of the lecture? → What did she ___ of the lecture?","think"],
+["On her 80th birthday, she went abroad for the first time. → She had never ___ before her 80th birthday. (fly)","flown"],
+["Sam was busy with his homework when we arrived. → Sam ___ his homework when we arrived. (do)","was doing"],
+["The museum is closed until Monday morning. → The museum ___ on Monday morning. (open)","will open|opens"],
+["He'll make lots of money before his 30th birthday. → By the time he's 30, he ___ lots of money. (make)","will have made"],
+["My wedding is next month. → I ___ next month. (get married)","am getting married|am going to get married"],
+["We don't expect to win. → We probably ___ win.","won't"],
+["The exam is from 10.00-12.00. → At 11.00, we ___ the exam. (take)","will be taking|will be sitting"],
+["The train is arriving in an hour. → In an hour, the train ___. (arrive)","will have arrived"],
+["I'm still working on my essay. → I ___ my essay yet. (complete, negative)","haven't completed"],
+["The last time I saw her was in 2019. → I haven't seen her ___ 2019.","since"]]};
+const X={1:{1:["I ___ TV when you called me last night.","was watching","watched|was watching|am watching|watch"],3:["Verdadero o falso: «Emily is going mountain biking at weekends» es la forma correcta para un hábito.","False","True|False"],5:["Corrige: «Is the doctor see a patient now?» Escribe la forma correcta de «see».","seeing"],8:["Corrige: «The coach is wanting our team to practise.» Escribe la forma correcta de «is wanting».","wants"],10:["Verdadero o falso: «We were walking in the park when we heard noises» combina past continuous y past simple.","True","True|False"],13:["As they ___ breakfast, someone knocked on the door.","were having","had|were having|have|are having"],16:["The show ___ in 2000 in Quebec.","began","begins|is beginning|began|has begun"]},
+2:{2:["Until yesterday, I ___ in a helicopter.","had never flown","never flew|had never flown|have never flown|am never flying"],4:["She left the party suddenly because she ___ to return the car by midnight.","had promised","promised|had promised|has promised|was promising"],6:["Verdadero o falso: «Bletchley Park has received a lot of attention in recent years» usa el present perfect.","True","True|False"],9:["Corrige: «I have lost my keys yesterday.» Escribe la forma correcta de «have lost».","lost"],12:["Corrige: «When we arrived, the film already started.» Escribe la forma correcta de «started».","had started|had already started"],16:["I'm never coming back. I ___ such terrible service.","have never received","never received|have never received|had never received|am never receiving"],18:["Verdadero o falso: «Is dinner ready? — No, I didn't prepare it yet» es correcto.","False","True|False"]},
+3:{1:["Watch out! The glass ___ off the table!","is going to fall","will fall|is going to fall|falls|will be falling"],5:["Verdadero o falso: «At this time tomorrow, we will be enjoying California» expresa una acción en progreso en un momento futuro.","True","True|False"],8:["I hope I ___ a message from her by the end of the day.","will have received","will receive|will have received|am receiving|received"],11:["Corrige: «By next summer, we will finish secondary school.» (acción completada antes de un momento futuro). Escribe la forma correcta.","will have finished"],14:["Verdadero o falso: «Will you still be studying when I come home?» es una pregunta en Future Continuous.","True","True|False"],17:["Corrige: «In the mornings, we studying with a local chef.» (futuro). Escribe la forma correcta de «we studying».","will be studying|are going to study|are studying"],19:["Don't worry, I ___ you for a meal. It's a promise.","will invite","invited|will invite|have invited|had invited"]},
+4:{2:["I still owe him money. → I ___ him yet.","haven't paid","didn't pay|haven't paid|hadn't paid|don't pay"],6:["Verdadero o falso: «They are arriving in an hour» reformula «Their arrival time is in an hour».","True","True|False"],9:["What was her opinion of the lecture? → What did she ___ of the lecture?","think","thought|think|thinks|thinking"],11:["Corrige la reformulación: «Sam did his homework when we arrived» (estaba ocupado con ella). Escribe la forma correcta de «did».","was doing"],13:["He'll make lots of money before 30. → By the time he's 30, he ___ lots of money.","will have made","will make|will have made|has made|is making"],15:["We don't expect to win. → We probably ___ win.","won't","don't|won't|haven't|aren't"],17:["Verdadero o falso: «In an hour, the train will have arrived» reformula «The train is arriving in an hour».","True","True|False"]}};
+for(const l in X)for(const i in X[l])Q[l][i]=X[l][i];
+const tp=q=>q[2]?(q[2]=='True|False'?'Verdadero o falso':'Opción múltiple'):q[0].startsWith('Corrige')?'Corrige el error':'Completa el hueco';
+const ob=(l,i,lk,r)=>{const q=Q[l][i],v=r.a[i]||'';if(!q[2])return`<input id="v" ${lk?'disabled':''} value="${esc(v)}" placeholder="Escribe tu respuesta" autocomplete="off" autocapitalize="off" onkeydown="if(event.key=='Enter')${lk?'nx()':'conf()'}">`;return`<div class="row" style="margin-bottom:10px">`+q[2].split('|').map(o=>`<button class="${o==v?'':'s'}" ${lk?'disabled':''} onclick="pk(this)">${esc(o)}</button>`).join('')+`</div><input id="v" type="hidden" value="${esc(v)}">`};
+const pk=b=>{document.getElementById('v').value=b.textContent;[...b.parentNode.children].forEach(x=>x.className='s');b.className=''};
+const CR={1:["CE2 · 2.2 Producir textos de estructura clara y corrección gramatical (presente y pasado)","CE5 · Usar conocimientos y estrategias para mejorar la comunicación y el aprendizaje de la lengua"],2:["CE2 · 2.2 Producir textos con corrección en tiempos perfectos y pasado","CE5 · Reflexionar sobre el funcionamiento de la lengua (perfect vs. past simple)"],3:["CE2 · 2.2 Producir textos con corrección en las formas de futuro","CE5 · Usar conocimientos y estrategias para expresar planes, predicciones y decisiones"],4:["CE2 · 2.2 Revisar y reformular textos manteniendo el significado","CE4 · Mediación: transmitir mensajes mediante paráfrasis"]};
+const nt=l=>S.res[l]&&S.res[l].done?S.res[l].s/2:null;
+const crit=()=>`<h3>Criterios de evaluación evaluados</h3>`+[1,2,3,4].map(l=>{const n=nt(l);return CR[l].map(c=>`<div class="rv"><b>N${l}</b> · ${c} <b style="float:right">${n===null?'—':n.toFixed(1)}</b></div>`).join('')}).join('')+`<p class="mu">Referencia: Decreto 103/2023 y Orden de 30 de mayo de 2023 (Andalucía). Cada criterio tiene el mismo peso. Confirma la numeración exacta con la programación de tu departamento.</p>`;
+const LV={1:["Tiempos básicos","Present & Past, simple y continuous"],2:["Perfect tenses","Present Perfect, Past Perfect y Past Simple"],3:["Futuro","Will, be going to, Future Continuous y Perfect"],4:["Rephrasing","Reescribe frases sin cambiar el significado"]};
+const norm=s=>s.toLowerCase().replace(/[’`]/g,"'").replace(/won't/g,'will not').replace(/can't/g,'cannot').replace(/n't/g,' not').replace(/'ll/g,' will').replace(/'m/g,' am').replace(/'re/g,' are').replace(/'ve/g,' have').replace(/'d/g,' had').replace(/'s\b/g,' is').replace(/[.!?,]/g,'').replace(/\s+/g,' ').trim();
+const good=(l,i,a)=>Q[l][i][1].split('|').some(x=>norm(x)===norm(a));
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let S;try{S=JSON.parse(localStorage.getItem('g2b'))}catch(e){}
+S=S||{n:'',a:'',c:'',res:{}};
+const save=()=>{try{localStorage.setItem('g2b',JSON.stringify(S))}catch(e){}};
+let view=S.n?'map':'welcome',cur=null;
+const passed=l=>S.res[l]&&S.res[l].done&&S.res[l].s>=10;
+const open_=l=>l==1||passed(l-1);
+const cat=z=>`<svg width="${z}" height="${z}" viewBox="0 0 120 120" aria-hidden="true"><path d="M92 100c26 0 30-30 14-40" stroke="#b9b4c7" stroke-width="9" fill="none" stroke-linecap="round"/><ellipse cx="60" cy="100" rx="30" ry="18" fill="#f4f1f8" stroke="#cfc8dc" stroke-width="2"/><polygon points="26,50 32,12 58,32" fill="#b9b4c7"/><polygon points="94,50 88,12 62,32" fill="#b9b4c7"/><polygon points="33,40 36,23 49,33" fill="#f9a8d4"/><polygon points="87,40 84,23 71,33" fill="#f9a8d4"/><ellipse cx="60" cy="58" rx="38" ry="32" fill="#fff" stroke="#cfc8dc" stroke-width="2"/><ellipse cx="46" cy="38" rx="11" ry="8" fill="#c9c5d3"/><ellipse cx="78" cy="40" rx="7" ry="5" fill="#c9c5d3"/><circle cx="45" cy="58" r="5.5" fill="#3b2f4a"/><circle cx="75" cy="58" r="5.5" fill="#3b2f4a"/><circle cx="46.8" cy="56" r="1.8" fill="#fff"/><circle cx="76.8" cy="56" r="1.8" fill="#fff"/><circle cx="35" cy="68" r="6" fill="#f9a8d4" opacity=".55"/><circle cx="85" cy="68" r="6" fill="#f9a8d4" opacity=".55"/><polygon points="56,65 64,65 60,70" fill="#f472b6"/><path d="M60 70q-4 6-9 3M60 70q4 6 9 3" stroke="#8a7a99" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M30 64l-16-3M30 69l-16 4M90 64l16-3M90 69l16 4" stroke="#b5aec4" stroke-width="1.6" stroke-linecap="round"/></svg>`;
+const hdr=()=>`<header class="noprint">${cat(44)}<h1>Grammar con Copy</h1>${S.n?`<button onclick="go('map')">Niveles</button><button onclick="go('report')">📊 Informe</button>`:''}</header>`;
+const go=v=>{view=v;draw()};
+function grade(){const L=[1,2,3,4].filter(l=>nt(l)!==null);const g=Math.round([1,2,3,4].reduce((a,l)=>a+(nt(l)||0),0)/4*10)/10;return{L,g,term:g>=9?'Sobresaliente':g>=7?'Notable':g>=6?'Bien':g>=5?'Suficiente':'Insuficiente'}}
+function draw(){const a=document.getElementById('app');let h=hdr();
+if(view=='welcome')h+=`<div class="card" style="text-align:center">${cat(130)}<h2>¡Hola! Soy Copy 🐾</h2><p class="mu">Repasa la gramática inglesa de 2º de Bachillerato y prepara el examen de acceso a la universidad.</p><div style="text-align:left"><label>Nombre<input id="n" autocomplete="given-name"></label><label>Apellidos<input id="a" autocomplete="family-name"></label><label>Curso (ej. 2º Bach. A)<input id="c"></label></div><p id="er" class="ko"></p><button onclick="begin()">¡Empezar! ✨</button></div>`;
+else if(view=='map'){h+=`<div class="card row">${cat(70)}<div class="bub">¡Hola, <b>${esc(S.n)}</b>! Supera cada nivel con al menos 10 aciertos de 20.</div></div>`;
+for(let l=1;l<=4;l++){const r=S.res[l],o=open_(l);h+=`<div class="card lv ${o?'':'lock'}"><div class="n">${o?l:'🔒'}</div><div style="flex:1"><b>Nivel ${l}: ${LV[l][0]}</b><div class="mu">${LV[l][1]}</div>${r&&r.done?`<span class="tag ${r.s>=10?'ok':'ko'}">${r.s}/20 · ${r.s>=10?'superado':'a repetir'}</span>`:''}</div><button ${o?'':'disabled'} onclick="lvl(${l})">${r&&r.done?'Ver':'Jugar'}</button></div>`}}
+else if(view=='quiz'){const{l,i}=cur,r=S.res[l],lk=cur.st=='lock';
+h+=`<div class="card"><div class="row"><b>Nivel ${l} · ${i+1}/20</b><span class="mu">${r.c[i]?'Cambio usado':'1 cambio disponible'}</span></div><div class="bar"><i style="width:${i*5}%"></i></div><span class="tag">${tp(Q[l][i])}</span><p class="q">${esc(Q[l][i][0]).replace('___','<span class="blank"></span>')}</p>${ob(l,i,lk,r)}<p id="er" class="ko"></p><div class="row">${lk?`${r.c[i]?'':'<button class="s" onclick="chg()">✏️ Cambiar respuesta</button>'}<button onclick="nx()">${i==19?'Terminar':'Siguiente'} →</button>`:'<button onclick="conf()">Confirmar</button>'}</div></div><div class="card row">${cat(56)}<div class="bub">${lk?'¡Guardado! Las soluciones se muestran al terminar el nivel.':'Piensa bien el tiempo verbal… 🤔'}</div></div>`}
+else if(view=='result'){const l=cur.l,r=S.res[l],p=r.s>=10;h+=`<div class="card" style="text-align:center">${cat(100)}<div class="big">${r.s}/20</div><h2 class="${p?'ok':'ko'}">${p?'¡Nivel superado! 🎉':'Casi… ¡inténtalo de nuevo! 💪'}</h2><div class="row" style="justify-content:center">${p&&l<4?`<button onclick="lvl(${l+1})">Siguiente nivel</button>`:''}<button class="s" onclick="redo(${l})">Repetir nivel</button><button class="s" onclick="go('report')">Informe</button></div></div><div class="card"><b>Revisión</b>`+Q[l].map((q,i)=>{const o=good(l,i,r.a[i]||'');return`<div class="rv">${o?'<span class="ok">✔</span>':'<span class="ko">✖</span>'} ${esc(q[0])}<br><span class="mu">Tu respuesta: <b>${esc(r.a[i]||'—')}</b>${o?'':` · Correcta: <b>${esc(q[1].split('|')[0])}</b>`}</span></div>`}).join('')+'</div>'}
+else{const G=grade(),d=new Date().toLocaleDateString('es-ES',{day:'numeric',month:'long',year:'numeric'});
+h+=`<div class="card rep"><div class="row">${cat(70)}<div style="flex:1"><h2 style="margin:0">Informe de progreso · Inglés 2º Bachillerato</h2><div class="mu">Repaso gramatical · Evaluación según LOMLOE (Andalucía)</div></div></div><p><b>Alumno/a:</b> ${esc(S.a)}, ${esc(S.n)} &nbsp; <b>Curso:</b> ${esc(S.c)} &nbsp; <b>Fecha:</b> ${d}</p><div style="text-align:center"><div class="big">${G.L.length?G.g.toFixed(1):'–'}</div><b>${G.L.length?G.term:'Sin niveles completados'}</b><div class="mu">Nota final = media de los 4 niveles (sobre 10)${G.L.length<4?" · PROVISIONAL: los niveles sin hacer cuentan como 0":""} · ${G.L.length} de 4 realizados · ${[1,2,3,4].filter(passed).length} superados</div></div><h3>Resultados por nivel</h3>`+[1,2,3,4].map(l=>{const r=S.res[l],s=r&&r.done?r.s:null;return`<div class="rb"><span>Nivel ${l}<br><span class="mu">${LV[l][0]}</span></span><div class="bar"><i style="width:${s===null?0:s*5}%;${s!==null&&s<10?'background:#e11d48':''}"></i></div><b>${s===null?'—':s+'/20'}</b></div>`}).join('')+crit()+`<p class="mu">Escala LOMLOE (calificación en Bachillerato): Insuficiente 0–4 · Suficiente 5 · Bien 6 · Notable 7–8 · Sobresaliente 9–10. Superación de cada nivel: 10 aciertos de 20 (50 %).</p></div><div class="row noprint"><button onclick="window.print()">📄 Descargar PDF</button><button class="s" onclick="go('map')">Volver</button></div><p class="mu noprint">En el cuadro de impresión elige «Guardar como PDF» y súbelo a Classroom. Si no se abre, abre la app en una pestaña del navegador.</p>`}
+a.innerHTML=h;const v=document.getElementById('v');if(v&&!v.disabled)v.focus();const f=document.getElementById('n');if(f)f.focus()}
+function begin(){const n=n_.value.trim(),a=a_.value.trim(),c=c_.value.trim();if(!n||!a||!c){er.textContent='Rellena nombre, apellidos y curso.';return}S.n=n;S.a=a;S.c=c;save();go('map')}
+const n_={get value(){return document.getElementById('n').value}},a_={get value(){return document.getElementById('a').value}},c_={get value(){return document.getElementById('c').value}};
+function lvl(l){if(!open_(l))return;const r=S.res[l];if(r&&r.done){cur={l};go('result');return}S.res[l]={a:[],c:[],s:0,done:false};cur={l,i:0,st:'in'};go('quiz')}
+function redo(l){S.res[l]={a:[],c:[],s:0,done:false};cur={l,i:0,st:'in'};save();go('quiz')}
+function conf(){const v=document.getElementById('v').value.trim();if(!v){document.getElementById('er').textContent='Escribe una respuesta.';return}S.res[cur.l].a[cur.i]=v;cur.st='lock';save();draw()}
+function chg(){S.res[cur.l].c[cur.i]=1;cur.st='in';save();draw()}
+function nx(){if(cur.i<19){cur.i++;cur.st='in';draw();return}const r=S.res[cur.l];r.s=Q[cur.l].filter((q,i)=>good(cur.l,i,r.a[i]||'')).length;r.done=true;save();go('result')}
+draw();
+</script></body></html>
