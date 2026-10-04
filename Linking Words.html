@@ -1,0 +1,136 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Linking Words</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f6f9e8;--card:#fff;--ink:#23382a;--g:#3f9b5a;--gd:#2a7142;--y:#ffd84d;--yl:#fff4bd;--mut:#6b7d6f;--bad:#d9534f}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17241b;--card:#213429;--ink:#eef5e6;--yl:#4a4520;--mut:#a9bcae}}
+:root[data-theme="dark"]{--bg:#17241b;--card:#213429;--ink:#eef5e6;--yl:#4a4520;--mut:#a9bcae}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 "Trebuchet MS",system-ui,sans-serif}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:8px 14px;background:var(--g);color:#fff}
+header b{flex:1;font-size:18px}
+button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:10px 16px;background:var(--y);color:#2b2b12;font-weight:700}
+button.s{background:#fff3;color:#fff}button:disabled{opacity:.45;cursor:not-allowed}
+main{max-width:720px;margin:0 auto;padding:16px 14px 40px}
+.card{background:var(--card);border-radius:20px;padding:18px;box-shadow:0 3px 0 #0001;margin-bottom:14px}
+.cat{display:flex;gap:12px;align-items:center}.cat svg{width:84px;flex:none}
+.bubble{background:var(--yl);border-radius:16px;padding:10px 14px;flex:1}
+input{width:100%;font:inherit;padding:10px;margin:4px 0 12px;border:2px solid var(--g);border-radius:10px;background:var(--card);color:var(--ink)}
+.opt{display:block;width:100%;text-align:left;margin:8px 0;background:var(--card);color:var(--ink);border:2px solid var(--g);font-weight:500}
+.opt.sel{background:var(--g);color:#fff}
+.bar{height:16px;background:#8883;border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:var(--g)}
+.bar.y i{background:var(--y)}.row{display:flex;justify-content:space-between;gap:8px;margin:10px 0 3px}
+.pill{display:inline-block;border-radius:20px;padding:2px 10px;background:var(--y);color:#2b2b12;font-weight:700;font-size:13px}
+.m{color:var(--mut);font-size:14px}h2,h3{margin:.2em 0 .5em}.wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}td,th{border-bottom:1px solid #8883;padding:6px;text-align:left}
+@media print{header,.noprint{display:none}}
+</style></head><body>
+<header><b>🐾 Copy's Linking Words</b><button class="s" id="bR">📊 Report</button><button class="s" id="bP">⬇ PDF</button></header>
+<main id="app"></main>
+<script>
+const CAT=`<svg viewBox="0 0 100 100"><path d="M18 40 14 8l26 16zM82 40 86 8 60 24z" fill="#9aa1a6"/><path d="M22 34 21 17l12 9zM78 34 79 17 67 26z" fill="#f4b6c2"/><ellipse cx="50" cy="58" rx="38" ry="33" fill="#f7f7f5" stroke="#9aa1a6" stroke-width="3"/><path d="M50 26c-6 0-9 5-9 9h18c0-4-3-9-9-9z" fill="#c4c9cc"/><ellipse cx="36" cy="54" rx="5" ry="7" fill="#2b3a33"/><ellipse cx="64" cy="54" rx="5" ry="7" fill="#2b3a33"/><circle cx="37.5" cy="51" r="2" fill="#fff"/><circle cx="65.5" cy="51" r="2" fill="#fff"/><path d="m46 65 8 0-4 5z" fill="#f4a0b0"/><path d="M50 70q-5 7-11 3M50 70q5 7 11 3" fill="none" stroke="#6b7479" stroke-width="2.5" stroke-linecap="round"/><path d="M12 62l16 3M12 72l16-4M88 62 72 65M88 72 72 68" stroke="#9aa1a6" stroke-width="2"/><circle cx="26" cy="68" r="5" fill="#f4b6c255"/><circle cx="74" cy="68" r="5" fill="#f4b6c255"/></svg>`;
+// [topic, stem, correct, w1, w2, w3]
+const L1=[
+["Addition","She is a great painter; ___, she plays the piano.","Moreover","However","Because","Unless"],
+["Addition","___ renewing the kitchen, she redecorated her bedroom.","In addition to","Moreover","In case of","Whereas"],
+["Addition","He is not only clever, ___ also hard-working.","but","and","so","yet"],
+["Contrast","___ the weather was terrible, we went skiing.","Although","Despite","Because","Therefore"],
+["Contrast","___ having a headache, she went to work.","In spite of","Although","Even though","However"],
+["Contrast","It was hot. ___, they wore winter clothes.","Nevertheless","Therefore","Moreover","Since"],
+["Cause and effect","I opened the window ___ the heat.","due to","because","so","as a result"],
+["Cause and effect","___ he got the highest marks, he received a prize.","Since","Owing to","Due to","Hence"],
+["Cause and effect","The water was dirty. ___, we didn't swim.","As a result","Because","Since","Owing to"],
+["Cause and effect","She missed the bus, ___ she took a taxi.","so","because","despite","unless"],
+["Consecutive","The cake was ___ delicious that we ate it all.","so","such","very","too"],
+["Consecutive","It was ___ a boring film that I left the cinema.","such","so","too","very"],
+["Purpose","I went to the supermarket ___ buy some milk.","in order to","for","so that","because"],
+["Purpose","He lifted me up ___ I could see what was happening.","so that","in order to","so as to","for"],
+["Purpose","Write clearly ___ be misunderstood.","so as not to","in order to","so that","for"],
+["Conditions","You won't pass the exam ___ you study.","unless","if","providing","in case"],
+["Conditions","I'll lend you my scooter ___ you drive carefully.","providing that","unless","otherwise","despite"],
+["Conditions","Take an umbrella ___ it rains.","in case","unless","otherwise","although"],
+["Emphasis","I don't like cats. ___, I hate them.","Actually","Besides","Thus","Since"],
+["Time sequence","___, I would like to thank you all for listening.","In conclusion","To begin with","Secondly","Moreover"]];
+const L2=[
+["Contrast","She drowned, even though she was an expert swimmer.","She drowned in spite of being an expert swimmer.","She drowned because she was an expert swimmer.","She drowned so she was an expert swimmer.","She drowned unless she was an expert swimmer."],
+["Contrast","Despite having a terrible headache, she went to the office.","Although she had a terrible headache, she went to the office.","She had a terrible headache, so she went to the office.","She went to the office because of her terrible headache.","She went to the office unless she had a headache."],
+["Contrast","Although the weather was terrible, we went skiing.","Despite the terrible weather, we went skiing.","Despite the weather was terrible, we went skiing.","Because of the terrible weather, we went skiing.","We went skiing, so the weather was terrible."],
+["Contrast","They were ill. Nevertheless, they visited other countries.","Although they were ill, they visited other countries.","They were ill, so they visited other countries.","They visited other countries because they were ill.","Unless they were ill, they visited other countries."],
+["Cause and effect","I opened the window because it was hot.","I opened the window due to the heat.","I opened the window due to it was hot.","I opened the window although it was hot.","I opened the window in order to the heat."],
+["Cause and effect","They lost the match owing to the bad weather.","As the weather was bad, they lost the match.","Although the weather was bad, they lost the match.","They lost the match unless the weather was bad.","The weather was bad, so they lost it because."],
+["Cause and effect","The water wasn't clean. As a result, we didn't swim.","We didn't swim due to the unclean water.","We didn't swim although the water wasn't clean.","The water wasn't clean despite we didn't swim.","We didn't swim unless the water was clean, so."],
+["Cause and effect","As I didn't know it was your birthday, I didn't buy you a present.","I didn't know it was your birthday. Therefore, I didn't buy you a present.","I didn't know it was your birthday. However, I didn't buy you a present.","I didn't know it was your birthday. Moreover, I bought you a present.","I didn't buy you a present in case it was your birthday."],
+["Addition","As well as renewing the kitchen, she redecorated her bedroom.","She renewed the kitchen. In addition, she redecorated her bedroom.","She renewed the kitchen. However, she redecorated her bedroom.","She renewed the kitchen. Therefore, she redecorated her bedroom.","She renewed the kitchen unless she redecorated her bedroom."],
+["Addition","She is an excellent painter. Moreover, she plays the piano.","She plays the piano as well as being an excellent painter.","She is an excellent painter despite playing the piano.","She is an excellent painter in order to play the piano.","She plays the piano unless she is a painter."],
+["Consecutive","He is so rude that everybody hates him.","He is such a rude man that everybody hates him.","He is such rude that everybody hates him.","He is so a rude man that everybody hates him.","He is too such rude that everybody hates him."],
+["Consecutive","The film was so exciting!","It was such an exciting film!","It was such exciting film!","It was so an exciting film!","It was a such exciting film!"],
+["Consecutive","It was such a delicious cake that we ate it all.","The cake was so delicious that we ate it all.","The cake was such delicious that we ate it all.","The cake was so a delicious that we ate it all.","The cake was too delicious that we ate it all."],
+["Purpose","I am going to study harder. I want to pass my exam.","I am going to study harder in order to pass my exam.","I am going to study harder in order that pass my exam.","I am going to study harder so as pass my exam.","I am going to study harder so that I to pass my exam."],
+["Purpose","He lifted me up because he wanted me to see what was happening.","He lifted me up so that I could see what was happening.","He lifted me up in order to I see what was happening.","He lifted me up so as to I could see what was happening.","He lifted me up for seeing me what was happening."],
+["Purpose","Try to write clearly. That way you will avoid being misunderstood.","Try to write clearly so as not to be misunderstood.","Try to write clearly so as to be misunderstood.","Try to write clearly in order not be misunderstood.","Try to write clearly so that not to be misunderstood."],
+["Conditions","You will understand the text if you read it thoroughly.","You won't understand the text unless you read it thoroughly.","You won't understand the text unless you don't read it thoroughly.","You will understand the text otherwise you read it thoroughly.","You will understand the text despite you read it thoroughly."],
+["Conditions","Behave yourself! Otherwise, we won't go to the cinema!","Unless you behave yourself, we won't go to the cinema!","Unless you don't behave yourself, we won't go to the cinema!","In case you behave yourself, we won't go to the cinema!","We won't go to the cinema providing you misbehave, so."],
+["Conditions","I will take an umbrella. It may rain.","I will take an umbrella in case it rains.","I will take an umbrella unless it rains.","I will take an umbrella providing it rains not.","I will take an umbrella despite it may rain."],
+["Addition","The war caused destruction and death. Furthermore, it caused hatred between the communities.","The war caused not only destruction and death but also hatred between the communities.","The war caused not only destruction and death but hatred between the communities.","The war caused neither destruction nor death but also hatred between the communities.","The war caused destruction and death although hatred between the communities."]];
+const LV=[{n:1,name:"Linking Words",q:L1,task:"Choose the best connector.",crit:[["CE2 · 2.2","Organiza y redacta textos coherentes y cohesionados, usando conectores y mecanismos de cohesión adecuados."],["CE5 · 5.1","Usa y reconoce estructuras lingüísticas del repertorio propio de forma funcional."]]},
+{n:2,name:"Rephrasing",q:L2,task:"Choose the sentence with the same meaning.",crit:[["CE4 · 4.2","Reformula y parafrasea textos y mensajes, conservando el significado (mediación)."],["CE5 · 5.2","Compara y contrasta estructuras lingüísticas para producir enunciados equivalentes."]]}];
+const S={user:null,res:[null,null],passed:[false,false],cur:null,view:"start",best:[null,null]};
+const $=s=>document.querySelector(s),app=$("#app");
+const sh=a=>{a=[...a];for(let i=a.length-1;i>0;i--){let j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const grade=p=>p<50?"Insuficiente":p<60?"Suficiente":p<70?"Bien":p<90?"Notable":"Sobresaliente";
+const say=t=>`<div class="cat"><div>${CAT}</div><div class="bubble">${t}</div></div>`;
+function show(v){S.view=v;({start:vStart,menu:vMenu,quiz:vQuiz,end:vEnd,report:vReport})[v]();scrollTo(0,0)}
+function vStart(){app.innerHTML=`<div class="card">${say("<b>Hi! I'm Copy 🐱</b><br>Let's master linking words and rephrasing for your university entrance exam. First, tell me who you are!")}</div>
+<div class="card"><h2>Student details</h2><label>First name</label><input id="n" autocomplete="given-name"><label>Surname(s)</label><input id="a" autocomplete="family-name"><label>Course / group (e.g. 2º Bachillerato A)</label><input id="c"><button id="go">Start ▶</button><p class="m" id="er"></p></div>`;
+$("#go").onclick=()=>{const n=$("#n").value.trim(),a=$("#a").value.trim(),c=$("#c").value.trim();if(!n||!a||!c){$("#er").textContent="Please fill in your first name, surname(s) and course.";return}S.user={n,a,c};show("menu")}}
+function vMenu(){app.innerHTML=`<div class="card">${say(`Welcome, <b>${esc(S.user.n)}</b>! Pass each level by answering at least <b>10 out of 20</b> correctly. You can change an answer <b>once</b> per question.`)}</div>`+LV.map((l,i)=>{const lock=i==1&&!S.passed[0],r=S.res[i];return`<div class="card"><h3>Level ${l.n}: ${l.name} ${S.passed[i]?"✅":lock?"🔒":""}</h3><p class="m">${i?"Rephrasing exercises only.":"Connectors in English."} 20 questions.${r?` Last score: <b>${r.score}/20</b>.`:""}</p><button data-l="${i}" ${lock?"disabled":""}>${r?"Try again":"Start"} ▶</button></div>`}).join("");
+app.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>startLevel(+b.dataset.l))}
+function startLevel(i){S.cur={l:i,k:0,qs:sh(LV[i].q).map(q=>({t:q[0],s:q[1],o:sh(q.slice(2).map((x,j)=>({x,ok:j==0}))),pick:null,ch:0,lock:false}))};show("quiz")}
+function vQuiz(){const C=S.cur,q=C.qs[C.k],L=LV[C.l];
+app.innerHTML=`<div class="card"><div class="row"><span class="pill">Level ${L.n} · ${L.name}</span><span class="m">${C.k+1} / 20</span></div><div class="bar y"><i style="width:${C.k*5}%"></i></div></div>
+<div class="card">${say(L.task)}<h3 style="margin-top:14px">${esc(q.s)}</h3>${q.o.map((o,j)=>`<button class="opt ${q.pick===j?"sel":""}" data-j="${j}">${"ABCD"[j]}. ${esc(o.x)}</button>`).join("")}
+<p class="m">${q.pick===null?"Pick an answer.":q.ch?"You have already changed your answer. It is final.":"You can change your answer once."}</p><button id="nx" ${q.pick===null?"disabled":""}>${C.k==19?"Finish ✔":"Next ▶"}</button></div>`;
+app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{const j=+b.dataset.j;if(q.pick===j)return;if(q.pick!==null){if(q.ch)return;q.ch=1}q.pick=j;vQuiz()});
+$("#nx").onclick=()=>{if(C.k<19){C.k++;vQuiz()}else finish()}}
+function finish(){const C=S.cur,qs=C.qs,score=qs.filter(q=>q.o[q.pick].ok).length,tp={};
+qs.forEach(q=>{tp[q.t]=tp[q.t]||[0,0];tp[q.t][1]++;if(q.o[q.pick].ok)tp[q.t][0]++});
+const r={score,tp,wrong:qs.filter(q=>!q.o[q.pick].ok).map(q=>({s:q.s,you:q.o[q.pick].x,ok:q.o.find(o=>o.ok).x})),date:new Date().toLocaleDateString("es-ES")};
+S.res[C.l]=r;if(score>=10)S.passed[C.l]=true;show("end")}
+function vEnd(){const C=S.cur,r=S.res[C.l],ok=r.score>=10;
+app.innerHTML=`<div class="card">${say(ok?`<b>Well done!</b> ${C.l==0?"Level 2 is unlocked 🎉":"You've completed both levels! 🏆"}`:"<b>Not yet!</b> You need 10 correct answers to move on. Check your mistakes and try again.")}<h2>Level ${C.l+1}: ${r.score}/20</h2><div class="bar"><i style="width:${r.score*5}%"></i></div><p>Mark: <b>${(r.score/2).toFixed(1)}/10</b> · ${grade(r.score*5)}</p>
+<button id="r">📊 See report</button> <button id="m" class="s" style="background:var(--g)">Menu</button></div>`;$("#r").onclick=()=>show("report");$("#m").onclick=()=>show("menu")}
+function lvBlock(i){const l=LV[i],r=S.res[i];if(!r)return`<div class="card"><h3>Level ${l.n}: ${l.name}</h3><p class="m">Not completed yet.</p></div>`;const p=r.score*5;
+return`<div class="card"><div class="row"><h3>Level ${l.n}: ${l.name}</h3><span class="pill">${r.score}/20 · ${(r.score/2).toFixed(1)}</span></div><div class="bar"><i style="width:${p}%"></i></div><p class="m">${r.score>=10?"✅ Level passed":"❌ Level not passed (min. 10/20)"} · ${grade(p)}</p>
+${Object.entries(r.tp).map(([t,[a,b]])=>`<div class="row"><span>${t}</span><span class="m">${a}/${b}</span></div><div class="bar y"><i style="width:${a/b*100}%"></i></div>`).join("")}
+<h3 style="margin-top:16px">Evaluation criteria (LOMLOE · Andalucía)</h3><div class="wrap"><table><tr><th>Criterion</th><th>Description</th><th>Level</th></tr>${l.crit.map(c=>`<tr><td><b>${c[0]}</b></td><td>${c[1]}</td><td>${grade(p)}</td></tr>`).join("")}</table></div>
+${r.wrong.length?`<h3 style="margin-top:16px">Review your mistakes</h3>`+r.wrong.map(w=>`<p class="m"><b>${esc(w.s)}</b><br>❌ ${esc(w.you)}<br>✅ ${esc(w.ok)}</p>`).join(""):"<p>🌟 No mistakes!</p>"}</div>`}
+function vReport(){if(!S.user)return show("start");const d=S.res.filter(Boolean),tot=d.reduce((a,r)=>a+r.score,0),n=d.length*20,p=n?tot/n*100:0;
+app.innerHTML=`<div class="card">${say(n?`Here is your progress, <b>${esc(S.user.n)}</b>!`:"Complete a level to see results here.")}<h2>Progress report</h2><p><b>${esc(S.user.a)}, ${esc(S.user.n)}</b> · ${esc(S.user.c)}</p><p class="m">Subject: English (Lengua Extranjera) · 2º Bachillerato · Marco: LOMLOE, Decreto 103/2023 (Andalucía)</p>
+${n?`<div class="row"><b>Overall</b><b>${(p/10).toFixed(1)}/10 · ${grade(p)}</b></div><div class="bar"><i style="width:${p}%"></i></div>`:""}</div>${lvBlock(0)}${lvBlock(1)}
+<div class="card noprint"><button id="back" class="s" style="background:var(--g)">← Back</button> <button id="pd">⬇ Download PDF</button></div>`;
+$("#back").onclick=()=>show(S.cur&&S.res[S.cur.l]?"end":S.user?"menu":"start");$("#pd").onclick=pdf}
+async function pdf(){if(!S.user){alert("Please enter your details first.");return}
+if(!window.jspdf){alert("PDF library not available.");return}
+const D=new jspdf.jsPDF({unit:"mm",format:"a4"});let y=0;
+const T=(t,x,s,b,c)=>{D.setFont("helvetica",b?"bold":"normal");D.setFontSize(s);D.setTextColor(...(c||[35,56,42]));D.text(t,x,y)};
+const chk=h=>{if(y+h>285){D.addPage();y=20}};
+const bar=(x,w,p,col)=>{D.setFillColor(225,230,220);D.roundedRect(x,y,w,4,2,2,"F");if(p>0){D.setFillColor(...col);D.roundedRect(x,y,Math.max(w*p/100,3),4,2,2,"F")}};
+D.setFillColor(63,155,90);D.rect(0,0,210,28,"F");D.setFillColor(255,216,77);D.rect(0,28,210,3,"F");
+y=14;T("Copy's Linking Words - Progress report",14,18,1,[255,255,255]);y=22;T("English 2º Bachillerato · LOMLOE - Andalucía (Decreto 103/2023)",14,10,0,[255,255,255]);
+y=42;T(`Student: ${S.user.a}, ${S.user.n}`,14,12,1);y+=7;T(`Course: ${S.user.c}   ·   Date: ${new Date().toLocaleDateString("es-ES")}`,14,11);
+const d=S.res.filter(Boolean),tot=d.reduce((a,r)=>a+r.score,0),p=d.length?tot/(d.length*20)*100:0;
+y+=10;T(`Overall mark: ${(p/10).toFixed(1)}/10 - ${grade(p)}`,14,13,1);y+=5;bar(14,182,p,[63,155,90]);y+=10;
+LV.forEach((l,i)=>{const r=S.res[i];chk(40);D.setFillColor(255,244,189);D.roundedRect(12,y-5,186,9,3,3,"F");T(`Level ${l.n}: ${l.name}`,16,12,1);
+if(!r){T("Not completed",150,10,0,[107,125,111]);y+=10;return}
+T(`${r.score}/20 - ${(r.score/2).toFixed(1)}/10 - ${r.score>=10?"PASSED":"NOT PASSED"}`,110,10,1);y+=8;bar(14,182,r.score*5,[63,155,90]);y+=8;
+Object.entries(r.tp).forEach(([t,[a,b]])=>{chk(8);T(t,16,10);T(`${a}/${b}`,70,10);y-=3.5;bar(85,100,a/b*100,[240,190,30]);y+=9});
+y+=1;chk(30);T("Evaluation criteria (LOMLOE · Andalucía):",14,10,1);y+=5;
+l.crit.forEach(c=>{const ln=D.splitTextToSize(`${c[0]}: ${c[1]}`,135);chk(ln.length*4.5+3);D.setFontSize(9);D.setFont("helvetica","normal");D.setTextColor(35,56,42);D.text(ln,16,y);T(grade(r.score*5),170,9,1,[42,113,66]);y+=ln.length*4.5+2});
+if(r.wrong.length){y+=2;chk(12);T("Mistakes to review:",14,10,1);y+=5;r.wrong.forEach(w=>{const ln=D.splitTextToSize(`${w.s}  ->  ${w.ok}`,176);chk(ln.length*4+2);D.setFontSize(8.5);D.setFont("helvetica","normal");D.setTextColor(80,90,82);D.text(ln,18,y);y+=ln.length*4+1.5})}
+y+=8});
+const buf=new Uint8Array(D.output("arraybuffer")),fn=`Report_${S.user.a}_${S.user.n}.pdf`.replace(/\s+/g,"_");
+try{const dl=await claude.use("downloads");if(dl)await dl.save({filename:fn,data:buf});else D.save(fn)}catch(e){if(e&&e.code!=="declined")try{D.save(fn)}catch(_){}}}
+$("#bR").onclick=()=>S.user?show("report"):alert("Enter your details first, please.");$("#bP").onclick=pdf;
+show("start");
+</script></body></html>
