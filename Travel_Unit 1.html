@@ -1,0 +1,112 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Copy Travel B2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f6f9e8;--card:#fff;--ink:#23382a;--g:#3f9b5a;--gd:#2a7142;--y:#ffd84d;--yl:#fff4bd;--mut:#6b7d6f;--bad:#d9534f}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17241b;--card:#213429;--ink:#eef5e6;--yl:#4a4520;--mut:#a9bcae}}
+:root[data-theme="dark"]{--bg:#17241b;--card:#213429;--ink:#eef5e6;--yl:#4a4520;--mut:#a9bcae}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 "Trebuchet MS",system-ui,sans-serif}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:8px 14px;background:var(--g);color:#fff}
+header b{flex:1;font-size:18px}
+button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:10px 16px;background:var(--y);color:#2b2b12;font-weight:700}
+button.s{background:#fff3;color:#fff}button:disabled{opacity:.45;cursor:not-allowed}
+main{max-width:720px;margin:0 auto;padding:16px 14px 40px}
+.card{background:var(--card);border-radius:20px;padding:18px;box-shadow:0 3px 0 #0001;margin-bottom:14px}
+.cat{display:flex;gap:12px;align-items:center}.cat svg{width:84px;flex:none}
+.bubble{background:var(--yl);border-radius:16px;padding:10px 14px;flex:1}
+input{width:100%;font:inherit;padding:10px;margin:4px 0 12px;border:2px solid var(--g);border-radius:10px;background:var(--card);color:var(--ink)}
+.opt{display:block;width:100%;text-align:left;margin:8px 0;background:var(--card);color:var(--ink);border:2px solid var(--g);font-weight:500}
+.opt.sel{background:var(--g);color:#fff}
+.bar{height:16px;background:#8883;border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:var(--g)}
+.bar.y i{background:var(--y)}.row{display:flex;justify-content:space-between;gap:8px;margin:10px 0 3px}
+.pill{display:inline-block;border-radius:20px;padding:2px 10px;background:var(--y);color:#2b2b12;font-weight:700;font-size:13px}
+.m{color:var(--mut);font-size:14px}h2,h3{margin:.2em 0 .5em}.wrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:14px}td,th{border-bottom:1px solid #8883;padding:6px;text-align:left}
+@media print{header,.noprint{display:none}}
+
+.dots{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}.dots b{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:12px;background:#8883;cursor:pointer;color:var(--ink)}
+.dots b.on{outline:3px solid var(--y)}.dots b.a{background:var(--g);color:#fff}.dots b.ok{background:var(--g);color:#fff}.dots b.no{background:var(--bad);color:#fff}
+.talk svg{animation:bob .35s infinite alternate}@keyframes bob{to{transform:translateY(-6px) rotate(-3deg)}}
+.txt{background:var(--yl);border-radius:14px;padding:12px;font-size:15px}
+#dr{position:fixed;inset:0;background:#0007;z-index:9;display:none;padding:env(safe-area-inset-top,0) 0 0}#dr.o{display:block}
+#dr>div{background:var(--card);max-width:560px;margin:5vh auto;height:88vh;overflow:auto;border-radius:20px;padding:16px}
+.w{display:flex;gap:8px;align-items:center;border-bottom:1px solid #8883;padding:8px 0}.w div{flex:1}
+</style></head><body>
+<header><b>🐾 Copy Travel B2</b><button class="s" id="bV">📖 Vocab</button><button class="s" id="bR">📊 Report</button><button class="s" id="bP">⬇ PDF</button></header>
+<div id="dr"><div><div class="row"><h2>Vocabulary &amp; pronunciation</h2><button id="x">✕</button></div><input id="q" placeholder="Search…"><div id="wl"></div></div></div>
+<main id="app"></main>
+<script>
+const CAT=`<svg viewBox="0 0 100 100"><path d="M18 40 14 8l26 16zM82 40 86 8 60 24z" fill="#9aa1a6"/><path d="M22 34 21 17l12 9zM78 34 79 17 67 26z" fill="#f4b6c2"/><ellipse cx="50" cy="58" rx="38" ry="33" fill="#f7f7f5" stroke="#9aa1a6" stroke-width="3"/><path d="M50 26c-6 0-9 5-9 9h18c0-4-3-9-9-9z" fill="#c4c9cc"/><ellipse cx="36" cy="54" rx="5" ry="7" fill="#2b3a33"/><ellipse cx="64" cy="54" rx="5" ry="7" fill="#2b3a33"/><circle cx="37.5" cy="51" r="2" fill="#fff"/><circle cx="65.5" cy="51" r="2" fill="#fff"/><path d="m46 65 8 0-4 5z" fill="#f4a0b0"/><path d="M50 70q-5 7-11 3M50 70q5 7 11 3" fill="none" stroke="#6b7479" stroke-width="2.5" stroke-linecap="round"/><path d="M12 62l16 3M12 72l16-4M88 62 72 65M88 72 72 68" stroke="#9aa1a6" stroke-width="2"/><circle cx="26" cy="68" r="5" fill="#f4b6c255"/><circle cx="74" cy="68" r="5" fill="#f4b6c255"/></svg>`;
+const TXT="For decades, travellers have dragged heavy suitcases behind them, yet wheeled luggage only became popular after 1970, when an American inventor, Bernard Sadow, fitted wheels to a case. Today the invention causes trouble: in historic towns such as Dubrovnik, rolling cases damage the streets and annoy residents with their noise, so the city plans to restrict them. Futurologist Ray Hammond believes travel may soon be luggage-free. Passengers would send their body measurements ahead, and 3D printers at the destination would make clothes to fit them, which would be recycled afterwards. A Japanese campaign, Any Wear, Anywhere, tested the idea in 2023: visitors travelled with minimum luggage and found second-hand garments made for them on arrival. Its goal was to raise awareness of the pollution caused by flying, because every extra kilo of luggage burns more fuel. Hopefully, travelling light will soon be the norm.";
+const TF=["True","False"];
+// [skill, question, options, correctIndex]
+const LV={r:{n:"Reading",ic:"📰",q:[
+["Multiple choice","What problem do wheeled suitcases cause in places like Dubrovnik?",["They damage the streets and make noise","They are too expensive for residents","They block the harbour","They cause pollution"],0],
+["Multiple choice","What was the main purpose of Any Wear, Anywhere?",["To sell second-hand clothes","To make Japan more convenient for tourists","To raise awareness of the environmental cost of flying","To test 3D printers"],2],
+["Multiple choice","According to Ray Hammond, 3D printers will…",["recycle old suitcases","make clothes to measure at the destination","carry heavy luggage","measure passengers at the airport"],1],
+["Multiple choice","What is the author's attitude in the final sentence?",["Doubtful","Angry","Indifferent","Hopeful"],3],
+["True / False","Wheeled suitcases have existed for centuries.",TF,1],
+["True / False","Bernard Sadow fitted wheels to a suitcase.",TF,0],
+["True / False","Dubrovnik has already banned every wheeled suitcase.",TF,1],
+["True / False","In the Japanese campaign, clothes were made specially for each visitor.",TF,0],
+["Synonym","“launched” (a campaign) means…",["started","finished","cancelled","delayed"],0],
+["Synonym","“garments” means…",["bags","clothing items","shoes","ideas"],1]]},
+v:{n:"Vocabulary",ic:"🧠",q:[
+["Preposition","It's essential to book tickets for the performance ___ advance.",["in","on","at","by"],0],
+["Preposition","It's just a matter ___ time before airlines increase their prices.",["of","for","about","in"],0],
+["Expression","I'll help you no ___ what. Don't worry.",["matter","mind","way","case"],0],
+["Preposition","We were really impressed ___ the food at the hotel.",["by","at","for","of"],0],
+["Expression","She is accustomed ___ travelling alone.",["to","for","with","at"],0],
+["Vocabulary","A narrow ___ leads across the island; the hike is difficult.",["trail","harbour","snap","shelter"],0],
+["Vocabulary","The boats stay in the ___ during storms.",["harbour","trail","garment","location"],0],
+["Vocabulary","We stayed ___ at a shelter and left early the next day.",["overnight","popular","accustomed","straightforward"],0],
+["Vocabulary","Cabrera is very ___ with tourists in summer.",["popular","accustomed","overnight","delayed"],0],
+["Vocabulary","The beautiful ___ include cliffs and a castle.",["surroundings","snaps","trails","garments"],0]]}};
+// Fixed answer-order shuffle (stable per session)
+const sh=a=>{a=a.map((x,i)=>[x,i]);for(let i=a.length-1;i>0;i--){let j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+Object.values(LV).forEach(l=>l.q=l.q.map(q=>{if(q[2]===TF)return{s:q[0],t:q[1],o:q[2],c:q[3]};const m=sh(q[2]);return{s:q[0],t:q[1],o:m.map(x=>x[0]),c:m.findIndex(x=>x[1]==q[3])}}));
+const G=[["accustomed to","acostumbrado a","/əˈkʌstəmd tuː/"],["harbour","puerto","harbour"],["location","ubicación","location"],["trail","sendero","trail"],["overnight","de noche / durante la noche","overnight"],["snap","foto rápida","snap"],["popular with","popular entre","popular with"],["surroundings","entorno","surroundings"],["no matter what","pase lo que pase","no matter what"],["a matter of time","cuestión de tiempo","a matter of time"],["in advance","con antelación","in advance"],["impressed by","impresionado por","impressed by"],["luggage","equipaje","luggage"],["drag","arrastrar","drag"],["damage / harm","daño","damage"],["launch","lanzar / poner en marcha","launch"],["garment","prenda de ropa","garment"],["straightforward","sencillo","straightforward"],["like-minded","afín, con ideas similares","like minded"],["delayed","retrasado","delayed"],["raise awareness","concienciar","raise awareness"],["carry-on","equipaje de mano","carry on"]];
+const S={name:"",a:{r:[],v:[]},k:{r:0,v:0},done:{r:false,v:false}};
+const $=s=>document.querySelector(s),app=$("#app"),esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let last="home";
+const sc=l=>LV[l].q.filter((q,i)=>S.a[l][i]===q.c).length,pts=l=>sc(l)/10*5,tot=()=>pts("r")+pts("v");
+const say=(t,id)=>`<div class="cat" id="${id||""}"><div>${CAT}</div><div class="bubble">${t}</div></div>`;
+function speak(t,el){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="en-GB";u.pitch=1.3;u.rate=.95;if(el){el.classList.add("talk");u.onend=u.onerror=()=>el.classList.remove("talk")}speechSynthesis.speak(u)}catch(e){}}
+function home(){last="home";const f=l=>S.done[l]?`${pts(l).toFixed(1)}/5 ✅`:`${S.a[l].filter(x=>x!=null).length}/10 answered`;
+app.innerHTML=`<div class="card">${say("<b>Hi! I'm Copy 🐱</b><br>Ready for some B2 practice? Read, answer, and use 📖 any time to check words and pronunciation!")}<label>Your name (for the report)</label><input id="nm" value="${esc(S.name)}"></div>`+
+Object.entries(LV).map(([l,v],i)=>`<div class="card"><h3>${v.ic} Level ${i+1}: ${v.n}</h3><p class="m">10 questions · 5 points · ${f(l)}</p><button data-l="${l}">${S.done[l]?"Review":"Play"} ▶</button></div>`).join("");
+$("#nm").oninput=e=>S.name=e.target.value;app.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>quiz(b.dataset.l))}
+function quiz(l){last=l;const L=LV[l],k=S.k[l],q=L.q[k],ans=S.a[l][k],d=S.done[l];
+app.innerHTML=`<div class="card"><div class="row"><span class="pill">${L.ic} ${L.n}</span><span class="m">${k+1}/10 · XP ${sc(l)*10}</span></div><div class="bar y"><i style="width:${S.a[l].filter(x=>x!=null).length*10}%"></i></div>
+<div class="dots">${L.q.map((x,i)=>`<b data-i="${i}" class="${i==k?"on":""} ${d?(S.a[l][i]===x.c?"ok":"no"):S.a[l][i]!=null?"a":""}">${i+1}</b>`).join("")}</div></div>
+${l=="r"?`<div class="card"><div class="row"><b>The Future of Travel is Luggage-Free</b><button id="rd">🔊 Listen</button></div>${say("Read the text carefully, then answer.","cp")}<p class="txt">${TXT}</p></div>`:`<div class="card">${say("Tap 📖 to look words up while you answer.","cp")}</div>`}
+<div class="card"><span class="pill">${q.s}</span><h3>${esc(q.t)}</h3>${q.o.map((o,j)=>`<button class="opt ${ans===j?"sel":""}" data-j="${j}" ${d?"disabled":""}>${"ABCD"[j]}. ${esc(o)}${d&&j==q.c?" ✅":""}</button>`).join("")}
+<div class="row"><button id="pv" ${k?"":"disabled"}>◀ Back</button>${k<9?`<button id="nx">Next ▶</button>`:d?`<button id="hm">Home</button>`:`<button id="fn">Finish ✔</button>`}</div></div>`;
+if($("#rd"))$("#rd").onclick=()=>speak(TXT,$("#cp"));
+app.querySelectorAll(".dots b").forEach(b=>b.onclick=()=>{S.k[l]=+b.dataset.i;quiz(l)});
+app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{S.a[l][k]=+b.dataset.j;quiz(l)});
+$("#pv").onclick=()=>{S.k[l]--;quiz(l)};if($("#nx"))$("#nx").onclick=()=>{S.k[l]++;quiz(l)};if($("#hm"))$("#hm").onclick=home;
+if($("#fn"))$("#fn").onclick=()=>{const m=LV[l].q.map((x,i)=>S.a[l][i]==null?i+1:0).filter(x=>x);if(m.length&&!confirm("Unanswered: "+m.join(", ")+". Finish anyway?"))return;S.done[l]=true;report()}}
+const grade=p=>p<5?"Insuficiente":p<6?"Suficiente":p<7?"Bien":p<9?"Notable":"Sobresaliente";
+function report(){last="report";const B=l=>{const L=LV[l];return`<div class="card"><div class="row"><h3>${L.ic} ${L.n}</h3><span class="pill">${pts(l).toFixed(1)} / 5</span></div><div class="bar"><i style="width:${pts(l)*20}%"></i></div><p class="m">${S.done[l]?`${sc(l)}/10 correct`:`In progress · ${S.a[l].filter(x=>x!=null).length}/10 answered (provisional)`}</p></div>`};
+app.innerHTML=`<div class="card">${say(S.done.r&&S.done.v?"Great job! Here is your final report.":"This is your progress so far.")}<h2>Progress report</h2><p><b>${esc(S.name||"Student")}</b> · ${new Date().toLocaleDateString("es-ES")}</p><div class="row"><h1 style="margin:0">${tot().toFixed(1)} / 10</h1><span class="pill">${grade(tot())}</span></div><div class="bar"><i style="width:${tot()*10}%"></i></div></div>${B("r")}${B("v")}
+<div class="card"><h3>Criterios LOMLOE (Andalucía)</h3><p class="m">CE1 · 1.1–1.2 Comprensión de textos escritos: ${S.done.r?grade(pts("r")*2):"pendiente"}<br>CE5 · 5.1 Uso y reconocimiento del repertorio léxico: ${S.done.v?grade(pts("v")*2):"pendiente"}</p></div>
+<div class="card"><button id="bk">← Back</button> <button id="pd">⬇ Download PDF</button></div>`;
+$("#bk").onclick=()=>last=="report"?home():0;$("#pd").onclick=pdf}
+async function pdf(){const D=new jspdf.jsPDF({unit:"mm",format:"a4"});let y=0;const T=(t,x,s,b,c)=>{D.setFont("helvetica",b?"bold":"normal");D.setFontSize(s);D.setTextColor(...(c||[35,56,42]));D.text(t,x,y)};
+D.setFillColor(63,155,90);D.rect(0,0,210,28,"F");D.setFillColor(255,216,77);D.rect(0,28,210,3,"F");y=16;T("Copy Travel B2 - Progress report",14,20,1,[255,255,255]);
+y=44;T(`Student: ${S.name||"-"}`,14,13,1);y+=7;T(`Date: ${new Date().toLocaleDateString("es-ES")}`,14,11);
+y+=16;T(`FINAL MARK: ${tot().toFixed(1)} / 10  (${grade(tot())})`,14,18,1,[42,113,66]);y+=8;D.setFillColor(225,230,220);D.roundedRect(14,y,182,5,2,2,"F");D.setFillColor(63,155,90);D.roundedRect(14,y,Math.max(1.8*tot()*10,3),5,2,2,"F");y+=16;
+["r","v"].forEach(l=>{T(`${LV[l].n}: ${pts(l).toFixed(1)} / 5  -  ${sc(l)}/10 correct${S.done[l]?"":" (not finished)"}`,14,12,1);y+=7;
+LV[l].q.forEach((q,i)=>{if(y>275){D.addPage();y=20}T(`${i+1}. ${S.a[l][i]===q.c?"Correct":"Incorrect"}${S.a[l][i]==null?" (blank)":""}`,18,10);y+=5.5});y+=6});
+if(y>250){D.addPage();y=20}T("Criterios LOMLOE (Andalucia):",14,11,1);y+=6;T(`CE1 - 1.1/1.2 Comprension de textos escritos: ${S.done.r?grade(pts("r")*2):"pendiente"}`,16,10);y+=5.5;T(`CE5 - 5.1 Repertorio lexico: ${S.done.v?grade(pts("v")*2):"pendiente"}`,16,10);
+const buf=new Uint8Array(D.output("arraybuffer")),fn=`Report_${(S.name||"student").replace(/\s+/g,"_")}.pdf`;
+try{const dl=await claude.use("downloads");if(dl)await dl.save({filename:fn,data:buf});else D.save(fn)}catch(e){if(!e||e.code!=="declined")try{D.save(fn)}catch(_){}}}
+function vocab(f){$("#wl").innerHTML=G.filter(g=>!f||g.join(" ").toLowerCase().includes(f)).map((g,i)=>`<div class="w"><div><b>${g[0]}</b><br><span class="m">${g[1]}</span></div><button data-t="${esc(g[0])}">🔊</button></div>`).join("");$("#wl").querySelectorAll("button").forEach(b=>b.onclick=()=>speak(b.dataset.t))}
+$("#bV").onclick=()=>{$("#dr").classList.add("o");vocab("")};$("#x").onclick=()=>$("#dr").classList.remove("o");$("#q").oninput=e=>vocab(e.target.value.toLowerCase());
+$("#bR").onclick=report;$("#bP").onclick=pdf;home();
+</script></body></html>
+
+</body></html>
