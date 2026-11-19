@@ -1,0 +1,433 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>2BACH_Conditional sentences</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* Layout: one calm lilac canvas; a purple header band; white cards; Copy the kitten leads every screen. */
+:root{
+  --bg:#f5f0fc;--surface:#ffffff;--ink:#2a1f45;--muted:#665a85;
+  --p:#6d3fc9;--p2:#8a63dd;--lil:#e8defb;--lil2:#f1eafd;--line:#d9ccf1;
+  --good:#5a33b3;--bad:#c23a68;--blank:#c9bfe0;--onp:#ffffff;
+  --hd:#4b2a93;--hdt:#ffffff;
+  --display:"Baloo 2","Trebuchet MS",system-ui,sans-serif;
+  --body:"Nunito",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1a1230;--surface:#261a45;--ink:#f1ebff;--muted:#b9acd8;
+  --p:#a98aff;--p2:#c1a8ff;--lil:#3a2a63;--lil2:#2e2150;--line:#46347a;
+  --good:#b79cff;--bad:#ff7aa0;--blank:#5b4b86;--onp:#1a1230;--hd:#120a26;--hdt:#f1ebff;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1a1230;--surface:#261a45;--ink:#f1ebff;--muted:#b9acd8;
+  --p:#a98aff;--p2:#c1a8ff;--lil:#3a2a63;--lil2:#2e2150;--line:#46347a;
+  --good:#b79cff;--bad:#ff7aa0;--blank:#5b4b86;--onp:#1a1230;--hd:#120a26;--hdt:#f1ebff;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.5 var(--body);margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--hd)}
+h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.15;margin:0;text-wrap:balance}
+h1{font-size:30px}h2{font-size:22px}h3{font-size:18px}
+p{margin:0}
+.wrap{max-width:820px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.hd{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--hd);color:var(--hdt)}
+.hd .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;padding-block:8px}
+.brand{display:flex;align-items:center;gap:10px;background:none;border:0;color:inherit;cursor:pointer;font:700 17px/1.1 var(--display);text-align:left;padding:2px;min-width:0}
+.brand .cat{width:40px;height:40px;flex:none}
+nav{display:flex;flex-wrap:wrap;gap:6px;margin-left:auto}
+.hb{font:700 14px var(--body);background:rgba(255,255,255,.14);color:var(--hdt);border:0;border-radius:10px;padding:8px 12px;cursor:pointer;min-height:38px}
+.hb:hover{background:rgba(255,255,255,.26)}
+.hb.act{background:#ffd9f0;color:#3a1668}
+:focus-visible{outline:3px solid var(--p2);outline-offset:2px}
+.hd :focus-visible{outline-color:#fff}
+main{padding-block:22px 56px;display:grid;gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:18px;min-width:0}
+.tint{background:var(--lil2)}
+.btn{font:700 15px var(--body);border:0;border-radius:12px;padding:11px 18px;cursor:pointer;min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.primary{background:var(--p);color:var(--onp)}
+.primary:hover:not(:disabled){filter:brightness(1.08)}
+.soft{background:var(--lil);color:var(--ink)}
+.soft:hover:not(:disabled){filter:brightness(.97)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.sp{justify-content:space-between}
+.m{color:var(--muted);font-size:14px}
+.pill{display:inline-block;background:var(--lil);color:var(--ink);border-radius:99px;padding:3px 12px;font:700 13px var(--body)}
+.pill.s{background:var(--p);color:var(--onp)}
+.bar{height:12px;border-radius:99px;background:var(--lil);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:99px;background:var(--p)}
+.hero{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr);gap:18px;align-items:center}
+.hero .cat{width:100%;max-width:150px;height:auto}
+.bubble{background:var(--lil);border-radius:18px;padding:14px 16px;position:relative;min-width:0}
+.bubble::before{content:"";position:absolute;left:-9px;top:26px;border:9px solid transparent;border-left:0;border-right-color:var(--lil)}
+.cat{display:block}
+.cat .mo{opacity:0;transform-box:fill-box;transform-origin:50% 0}
+body.talking .cat.live .mo{opacity:1;animation:talk .24s ease-in-out infinite alternate}
+body.talking .cat.live{animation:bob .5s ease-in-out infinite alternate}
+@keyframes talk{from{transform:scaleY(.25)}to{transform:scaleY(1.7)}}
+@keyframes bob{to{transform:translateY(-4px)}}
+@media (prefers-reduced-motion:reduce){body.talking .cat.live,body.talking .cat.live .mo{animation:none}}
+label{font-weight:700;display:block;margin-bottom:4px}
+input[type=text]{width:100%;font:600 16px var(--body);padding:12px 14px;border-radius:12px;border:2px solid var(--line);background:var(--surface);color:var(--ink)}
+input[type=text]:focus{border-color:var(--p);outline:none}
+.err{color:var(--bad);font-weight:700;min-height:22px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.lvhead{display:flex;gap:12px;align-items:center}
+.num{flex:none;width:44px;height:44px;border-radius:14px;background:var(--p);color:var(--onp);display:grid;place-items:center;font:700 22px var(--display)}
+.opt{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:var(--surface);color:var(--ink);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font:600 16px/1.4 var(--body);cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--p2)}
+.opt:disabled{cursor:default;color:var(--ink)}
+.opt[aria-pressed=true]{border-color:var(--p);background:var(--lil)}
+.opt .l{flex:none;width:28px;height:28px;border-radius:50%;background:var(--lil);display:grid;place-items:center;font:800 13px var(--body)}
+.opt[aria-pressed=true] .l{background:var(--p);color:var(--onp)}
+.opts{display:grid;gap:10px}
+.dots{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:6px}
+.dot{aspect-ratio:1;min-height:30px;border-radius:9px;border:2px solid var(--line);background:var(--surface);color:var(--ink);font:700 13px var(--body);cursor:pointer;padding:0}
+.dot.has{background:var(--lil);border-color:var(--p2)}
+.dot.cur{outline:3px solid var(--p);outline-offset:1px}
+.stem{font:700 21px/1.4 var(--display)}
+.blank{display:inline-block;min-width:70px;border-bottom:3px solid var(--p);margin:0 4px}
+.quote{border-left:5px solid var(--p2);background:var(--lil2);padding:12px 14px;border-radius:0 12px 12px 0;font:600 18px/1.45 var(--body)}
+.chip{display:inline-block;border-radius:8px;padding:2px 10px;font:800 13px var(--body);letter-spacing:.04em;text-transform:uppercase;background:var(--p);color:var(--onp)}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+table{border-collapse:collapse;width:100%;min-width:600px;font-size:14.5px;background:var(--surface)}
+th{background:var(--lil);text-align:left;font-weight:800}
+td,th{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td:first-child{font:700 16px var(--display);white-space:nowrap}
+.les.on{border-color:var(--p);box-shadow:0 0 0 3px var(--lil)}
+.fm{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-weight:800}
+.fm span{background:var(--lil);border-radius:10px;padding:5px 11px}
+.fm em{font-style:normal;color:var(--muted)}
+.ex{font:600 17px var(--body);color:var(--good)}
+.donut{width:150px;height:150px;flex:none}
+.rhero{display:flex;flex-wrap:wrap;gap:20px;align-items:center}
+.trow{display:grid;grid-template-columns:96px minmax(0,1fr) 52px;gap:10px;align-items:center;margin-top:10px}
+.sq{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:8px;font:800 12px var(--body)}
+.sq.ok{background:var(--good);color:var(--onp)}
+.sq.no{background:var(--bad);color:var(--onp);background-image:repeating-linear-gradient(135deg,transparent 0 5px,rgba(255,255,255,.3) 5px 8px)}
+.sq.bl{background:var(--blank);color:var(--ink)}
+.sq.an{background:var(--p2);color:var(--onp)}
+.map{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.leg{display:flex;flex-wrap:wrap;gap:14px;align-items:center;font-size:13px;color:var(--muted)}
+.corr{border-top:1px solid var(--line);padding-top:10px;margin-top:10px}
+.ov{position:fixed;inset:0;background:rgba(20,10,40,.6);z-index:40;padding:max(12px,env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) max(12px,env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px));overflow:auto}
+.dlg{max-width:820px;margin:0 auto;background:var(--bg);border-radius:22px;padding:18px;display:grid;gap:14px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tab[aria-selected=true]{background:var(--p);color:var(--onp)}
+.vg{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:8px}
+.w{display:flex;gap:10px;align-items:center;justify-content:space-between;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 8px 8px 14px}
+.w b{display:block}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:max(20px,env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;font-weight:700;z-index:60;max-width:90vw;display:none;text-align:center}
+@media (max-width:520px){
+  h1{font-size:25px}
+  .hero{grid-template-columns:minmax(0,96px) minmax(0,1fr);gap:12px}
+  .brand{font-size:15px}
+  .trow{grid-template-columns:78px minmax(0,1fr) 46px}
+  .hb{padding:8px 10px;font-size:13px}
+}
+</style>
+
+<header class="hd"><div class="wrap">
+  <button class="brand" data-act="home" aria-label="Go to the start"><span id="hcat"></span><span>2BACH<br>Conditional sentences</span></button>
+  <nav id="nav" aria-label="Main" hidden>
+    <button class="hb" data-act="lesson" id="n-lesson">Lesson</button>
+    <button class="hb" data-act="table">Table</button>
+    <button class="hb" data-act="words">Words</button>
+    <button class="hb" data-act="report" id="n-report">Report</button>
+    <button class="hb" data-act="pdf">Download PDF</button>
+  </nav>
+</div></header>
+<main class="wrap" id="app"></main>
+
+<div class="ov" id="ov" hidden>
+  <div class="dlg" role="dialog" aria-modal="true" aria-labelledby="dt">
+    <div class="row sp"><h2 id="dt">Quick reference</h2><button class="btn soft" data-act="close">Close</button></div>
+    <div class="tabs" role="tablist">
+      <button class="btn soft tab" role="tab" data-act="tab" data-v="t" id="tab-t">Summary table</button>
+      <button class="btn soft tab" role="tab" data-act="tab" data-v="w" id="tab-w">Vocabulary</button>
+    </div>
+    <div id="dbody"></div>
+  </div>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+/* ---------- Copy the kitten ---------- */
+function cat(live){return `<svg class="cat${live?" live":""}" viewBox="0 0 120 120" role="img" aria-label="Copy the kitten">
+<path d="M20 48 14 10l34 20z" fill="#9aa0b4"/><path d="M100 48 106 10 72 30z" fill="#9aa0b4"/>
+<path d="M24 40 21 21l15 10z" fill="#d9c9f5"/><path d="M96 40 99 21 84 31z" fill="#d9c9f5"/>
+<ellipse cx="60" cy="68" rx="46" ry="38" fill="#fbfbfd" stroke="#9aa0b4" stroke-width="3"/>
+<path d="M60 31c-5 0-8 5-8 10h16c0-5-3-10-8-10z" fill="#c4c8d6"/>
+<path d="M45 36v7M75 36v7" stroke="#c4c8d6" stroke-width="3" stroke-linecap="round"/>
+<ellipse cx="42" cy="66" rx="5.5" ry="7.5" fill="#2b2540"/><ellipse cx="78" cy="66" rx="5.5" ry="7.5" fill="#2b2540"/>
+<circle cx="44" cy="63" r="2.2" fill="#fff"/><circle cx="80" cy="63" r="2.2" fill="#fff"/>
+<circle cx="31" cy="78" r="6" fill="#f3c6dc" opacity=".6"/><circle cx="89" cy="78" r="6" fill="#f3c6dc" opacity=".6"/>
+<path d="M55 77h10l-5 6z" fill="#e8a0bd"/>
+<path d="M60 83q-6 8-13 3M60 83q6 8 13 3" fill="none" stroke="#7a7f93" stroke-width="2.6" stroke-linecap="round"/>
+<ellipse class="mo" cx="60" cy="88" rx="5" ry="3.2" fill="#5a3b78"/>
+<path d="M14 72l17 3M14 82l17-3M106 72 89 75M106 82 89 79" stroke="#9aa0b4" stroke-width="2" stroke-linecap="round"/>
+<path d="M60 104 43 96v15zM60 104 77 96v15z" fill="#7b4fd6"/><circle cx="60" cy="104" r="4.5" fill="#5a33b3"/></svg>`}
+document.getElementById("hcat").innerHTML=cat(false);
+
+/* ---------- Content ---------- */
+const TAGS={zero:"Zero",first:"Type 1",second:"Type 2",third:"Type 3"};
+const TAGKEYS=["zero","first","second","third"];
+// [tag, stem with ___, correct, wrong, wrong, wrong]
+const Q1=[
+["zero","If you mix blue and yellow, you always ___ green.","get","will get","would get","got"],
+["zero","Whenever I make a promise, I ___ it.","keep","would keep","am keeping","kept"],
+["zero","If students ___ their compulsory homework late, the teacher usually deducts marks.","hand in","handed in","would hand in","will have handed in"],
+["zero","Water ___ if the temperature reaches 100 degrees.","boils","would boil","boiled","will have boiled"],
+["zero","When I feel tired, I always ___ a short nap.","take","would take","took","will have taken"],
+["first","If it ___ tomorrow, we'll play tennis.","doesn't rain","won't rain","didn't rain","wouldn't rain"],
+["first","You won't get a promotion unless your work ___.","improves","will improve","improved","would improve"],
+["first","If I don't get a pay rise, I ___ for another job.","will look","would look","looked","had looked"],
+["first","I'll lend you my car provided that you ___ carefully.","drive","will drive","would drive","drove"],
+["first","He won't receive the letter if you ___ it before 1 o'clock today.","don't post","won't post","didn't post","wouldn't post"],
+["second","If I earned more money, I ___ a motorbike.","would buy","will buy","bought","would have bought"],
+["second","If I ___ you, I would think it over.","were","am","will be","had been"],
+["second","Do you think they would cancel the event if it ___ to rain?","continued","continues","would continue","had continued"],
+["second","If our parents were more open-minded, they ___ us go to the festival.","would let","will let","let","would have let"],
+["second","She ___ more friends if she weren't so shy.","would make","will make","made","would have made"],
+["third","If you had come to the lecture, you ___ it.","would have enjoyed","would enjoy","will enjoy","had enjoyed"],
+["third","He would have passed the driving test if he ___ so nervous.","hadn't been","wasn't","weren't","wouldn't have been"],
+["third","If I hadn't looked up the words in the dictionary, I ___ the answers.","wouldn't have known","wouldn't know","won't know","hadn't known"],
+["third","We ___ The Black Ball if the cinema hadn't been closed.","would have seen","would see","had seen","will see"],
+["third","If she ___ the sheets of music, the teacher wouldn't have been angry.","had handed in","handed in","would have handed in","hands in"]];
+// [tag, original sentence, hint word, correct, wrong, wrong, wrong]
+const Q2=[
+["first","If you don't wear your coat, you'll be cold.","UNLESS","Unless you wear your coat, you'll be cold.","Unless you don't wear your coat, you'll be cold.","Unless you wore your coat, you'll be cold.","If you wear your coat, you'll be cold."],
+["first","We'll play tennis tomorrow if it doesn't rain.","UNLESS","We'll play tennis tomorrow unless it rains.","We'll play tennis tomorrow unless it doesn't rain.","We'll play tennis tomorrow unless it will rain.","We'll play tennis tomorrow if it rains."],
+["first","I won't lend you the car if you don't promise to drive carefully.","UNLESS","I won't lend you the car unless you promise to drive carefully.","I won't lend you the car unless you don't promise to drive carefully.","I won't lend you the car if you promise to drive carefully.","I won't lend you the car unless you will promise to drive carefully."],
+["third","We didn't see The Black Ball because the cinema was closed.","IF","If the cinema hadn't been closed, we would have seen The Black Ball.","If the cinema wasn't closed, we would see The Black Ball.","If the cinema weren't closed, we would have seen The Black Ball.","If the cinema hadn't been closed, we would see The Black Ball."],
+["zero","I never eat octopus because I get sick.","WHEN","I get sick when I eat octopus.","I never get sick when I eat octopus.","I will get sick when I ate octopus.","When I never eat octopus, I get sick."],
+["third","We didn't pick you up at the station because you didn't phone us.","IF","If you had phoned us, we would have picked you up at the station.","If you phoned us, we would pick you up at the station.","If you hadn't phoned us, we would have picked you up at the station.","If you had phoned us, we would pick you up at the station."],
+["first","The government won't win the elections unless they create employment.","IF","If the government doesn't create employment, it won't win the elections.","If the government creates employment, it won't win the elections.","If the government didn't create employment, it won't win the elections.","If the government won't create employment, it wins the elections."],
+["first","I'll buy a new computer only if I get a rise in salary.","PROVIDED THAT","I'll buy a new computer provided that I get a rise in salary.","I'll buy a new computer provided that I don't get a rise in salary.","I'll buy a new computer provided that I will get a rise in salary.","I'll buy a new computer provided that I got a rise in salary."],
+["third","She wanted to buy that picture, but she didn't have enough money.","IF","If she had had enough money, she would have bought that picture.","If she had enough money, she would have bought that picture.","If she hadn't had enough money, she would have bought that picture.","If she had had enough money, she would buy that picture."],
+["zero","Whenever I make a promise, I keep it.","IF","If I make a promise, I keep it.","If I will make a promise, I keep it.","If I had made a promise, I kept it.","If I make a promise, I would have kept it."],
+["second","We haven't got any matches, so we can't light a fire.","IF","If we had some matches, we could light a fire.","If we have some matches, we can't light a fire.","If we had had some matches, we could light a fire.","If we had some matches, we could have lit a fire."],
+["third","I didn't renew my subscription because I lost interest in the magazine's articles.","IF","If I hadn't lost interest in the magazine's articles, I would have renewed my subscription.","If I didn't lose interest in the magazine's articles, I would renew my subscription.","If I hadn't lost interest in the magazine's articles, I would renew my subscription.","If I lose interest in the magazine's articles, I won't renew my subscription."],
+["third","He was too slow to win the race.","IF","If he had been faster, he would have won the race.","If he was faster, he will win the race.","If he had been slower, he would have won the race.","If he is faster, he would have won the race."],
+["first","I won't go to Rio unless I find a cheap flight.","IF","If I don't find a cheap flight, I won't go to Rio.","If I find a cheap flight, I won't go to Rio.","If I didn't find a cheap flight, I will go to Rio.","If I don't find a cheap flight, I will go to Rio."],
+["first","She will understand you provided that you don't speak too fast.","IF","She will understand you if you don't speak too fast.","She will understand you if you won't speak too fast.","She will understand you if you didn't speak too fast.","She will understand you unless you don't speak too fast."],
+["third","You didn't tell me we had run out of bread, so I didn't buy any.","IF","If you had told me we had run out of bread, I would have bought some.","If you told me we had run out of bread, I would buy some.","If you hadn't told me we had run out of bread, I would have bought some.","If you had told me we had run out of bread, I would buy some."],
+["zero","You can borrow books once you have a library card.","UNLESS","Unless you have a library card, you can't borrow books.","Unless you have a library card, you can borrow books.","Unless you don't have a library card, you can't borrow books.","Unless you had a library card, you couldn't borrow books."],
+["second","I want to go out with you tonight, but I have to revise for my exam.","IF","If I didn't have to revise for my exam, I would go out with you tonight.","If I don't have to revise for my exam, I would go out with you tonight.","If I hadn't had to revise for my exam, I would go out with you tonight.","If I didn't have to revise for my exam, I will go out with you tonight."],
+["third","I didn't do the homework because I didn't know about it.","IF","If I had known about it, I would have done the homework.","If I knew about it, I would do the homework.","If I hadn't known about it, I would have done the homework.","If I had known about it, I would do the homework."],
+["first","You must eat only fresh fruit and vegetables in that country. Otherwise, you may get food poisoning.","PROVIDING","Providing you eat only fresh fruit and vegetables in that country, you won't get food poisoning.","Providing you don't eat only fresh fruit and vegetables in that country, you won't get food poisoning.","Providing you ate only fresh fruit and vegetables in that country, you wouldn't have got food poisoning.","Providing you eat only fresh fruit and vegetables in that country, you may get food poisoning."]];
+
+function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function build(l,rows){return rows.map((r,i)=>{
+  const two=l===2,o=r.slice(two?3:2).map((x,j)=>({x,ok:j===0}));
+  const R=rng(l*977+i*31+7);for(let a=o.length-1;a>0;a--){const b=Math.floor(R()*(a+1));[o[a],o[b]]=[o[b],o[a]]}
+  return{tag:r[0],t:r[1],hint:two?r[2]:"",o,ok:o.findIndex(x=>x.ok)}})}
+const LV={1:{name:"Verb tenses in conditionals",task:"Choose the verb form that completes the sentence.",q:build(1,Q1)},
+          2:{name:"Rephrasing",task:"Choose the sentence that means the same as the original.",q:build(2,Q2)}};
+
+const LES=[
+{k:"zero",title:"Zero conditional",form:["if + present simple","present simple"],use:"General truths, habits and scientific facts. You can replace if with when or whenever.",ex:"If you heat ice, it melts.",
+ say:"The zero conditional is for general truths and habits. We use if plus the present simple, and then the present simple again. For example: if you heat ice, it melts. You can also say when or whenever instead of if."},
+{k:"first",title:"First conditional (Type 1)",form:["if + present simple","will + infinitive"],use:"Real or very likely situations in the future.",ex:"If it doesn't rain, we'll play tennis.",
+ say:"The first conditional is for real or very likely situations in the future. We use if plus the present simple, and then will plus the infinitive. For example: if it doesn't rain, we'll play tennis. Remember, never use will in the if clause!"},
+{k:"second",title:"Second conditional (Type 2)",form:["if + past simple","would + infinitive"],use:"Unreal or unlikely situations in the present or the future. With be, use were for every person.",ex:"If I earned more money, I would buy a motorbike.",
+ say:"The second conditional is for unreal or unlikely situations in the present or the future. We use if plus the past simple, and then would plus the infinitive. For example: if I earned more money, I would buy a motorbike. With the verb be, we usually say were for every person: if I were you, I would think it over."},
+{k:"third",title:"Third conditional (Type 3)",form:["if + past perfect","would have + past participle"],use:"Imaginary situations in the past: things that did not happen and cannot change.",ex:"If you had come to the lecture, you would have enjoyed it.",
+ say:"The third conditional is for imaginary situations in the past, things that did not happen. We use if plus the past perfect, and then would have plus the past participle. For example: if you had come to the lecture, you would have enjoyed it."},
+{k:"tips",title:"Two last tips",form:null,use:"Unless means if not, so never put a negative verb after it. Provided that, providing and as long as mean only if.",ex:"Unless you study, you won't pass. = If you don't study, you won't pass.",
+ say:"Two last tips. Unless means if not, so don't use a negative verb after unless. And provided that, providing and as long as mean only if. Good luck, and remember: you can open the table at any time!"}];
+const INTRO="Hello! I'm Copy, and I'm going to help you with conditional sentences. A conditional sentence has two parts: the if clause, and the main clause. There are four types: zero, first, second and third. Let's go!";
+
+const TABLE=[
+["Zero","General truths, habits, facts","if + present simple","present simple","If you heat ice, it melts."],
+["Type 1","Real or likely future","if + present simple","will + infinitive (also can, may, imperative)","If it doesn't rain, we'll play tennis."],
+["Type 2","Unreal or unlikely present or future","if + past simple (were for all persons)","would + infinitive (also could, might)","If I earned more money, I would buy a motorbike."],
+["Type 3","Unreal past, cannot change","if + past perfect","would have + past participle (also could have, might have)","If you had come, you would have enjoyed it."]];
+const NOTES=["unless = if ... not (the verb after unless is affirmative)","provided that / providing / as long as = only if","when / whenever can replace if in the zero conditional","Never use will or would in the if clause"];
+
+const VOC=[["compulsory","obligatorio"],["requirement","requisito"],["expected","esperado"],["force","obligar"],["handed in","entregó"],["looking back","mirando atrás"],["looked up to","admiraba"],
+["left out","dejar fuera, excluir"],["think over","pensárselo"],["back up","apoyar"],["up to","tramando, haciendo"],["get by","arreglárselas"],["count on","contar con"],
+["half-hearted","poco entusiasta"],["short-term","a corto plazo"],["first-hand","de primera mano"],["part-time","a tiempo parcial"],["long-lasting","duradero"],["open-minded","de mente abierta"],
+["borrow","tomar prestado"],["lend","prestar"],["promise","prometer"],["library card","carné de biblioteca"],["subscription","suscripción"],["renew","renovar"],["pay rise","aumento de sueldo"],["promotion","ascenso"],["employment","empleo"],["matches","cerillas"],["provided that","siempre que"],["unless","a menos que"]];
+
+/* ---------- State ---------- */
+const KEY="2bach-conditionals-v1";
+let S={user:null,ans:{1:Array(20).fill(null),2:Array(20).fill(null)},lv:1,k:{1:0,2:0},finished:false};
+try{const r=JSON.parse(localStorage.getItem(KEY)||"null");if(r&&r.ans&&r.ans[1]&&r.ans[2]){S=Object.assign(S,r)}}catch(e){}
+let view=S.user?"home":"start",showCorr=false;
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}};
+const $=s=>document.querySelector(s),app=$("#app");
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const answered=l=>S.ans[l].filter(x=>x!==null).length;
+const right=l=>LV[l].q.filter((q,i)=>S.ans[l][i]===q.ok).length;
+const mark=()=>Number(((right(1)+right(2))*0.25).toFixed(2));
+const all=()=>answered(1)+answered(2)===40;
+const done=()=>!!S.finished;
+const band=m=>m<5?"Keep practising":m<7?"Pass":m<9?"Very good":"Excellent";
+function typeStats(){const t={};TAGKEYS.forEach(k=>t[k]=[0,0]);[1,2].forEach(l=>LV[l].q.forEach((q,i)=>{t[q.tag][1]++;if(S.ans[l][i]===q.ok)t[q.tag][0]++}));return t}
+function toast(m){const t=$("#toast");t.textContent=m;t.style.display="block";clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display="none",3200)}
+
+/* ---------- British voice ---------- */
+let VOICE=null,run=0;
+function pickVoice(){try{const v=speechSynthesis.getVoices(),gb=v.filter(x=>/en[-_]GB/i.test(x.lang));
+  const pref=["Google UK English Female","Serena","Kate","Martha","Hazel","Stephanie","Fiona","Libby","Sonia"];
+  VOICE=pref.map(n=>gb.find(x=>x.name.includes(n))).find(Boolean)||gb.find(x=>/female/i.test(x.name))||gb[0]||v.find(x=>/^en/i.test(x.lang))||null}catch(e){}}
+try{pickVoice();speechSynthesis.onvoiceschanged=pickVoice}catch(e){}
+function stopSpeech(){run++;try{speechSynthesis.cancel()}catch(e){}document.body.classList.remove("talking");document.querySelectorAll(".les.on").forEach(x=>x.classList.remove("on"))}
+function speak(text,done){
+  if(!("speechSynthesis" in window)){toast("Voice is not available on this device. Read the subtitles instead.");return}
+  stopSpeech();const my=run;const u=new SpeechSynthesisUtterance(text);
+  u.lang="en-GB";if(VOICE)u.voice=VOICE;u.pitch=1.35;u.rate=.98;
+  const end=()=>{if(my!==run)return;document.body.classList.remove("talking");done&&done()};
+  u.onend=end;u.onerror=end;document.body.classList.add("talking");
+  try{speechSynthesis.speak(u)}catch(e){end()}}
+function playSeg(i,chain){
+  const segs=[{t:INTRO,id:"intro"}].concat(LES.map(s=>({t:s.say,id:"s-"+s.k})));
+  if(i>=segs.length){setSub("Well done! Now you are ready for Level 1.");return}
+  setSub(segs[i].t);const el=document.getElementById(segs[i].id);
+  document.querySelectorAll(".les.on").forEach(x=>x.classList.remove("on"));if(el){el.classList.add("on");el.scrollIntoView({block:"nearest",behavior:"smooth"})}
+  speak(segs[i].t,chain?()=>playSeg(i+1,true):null);
+  if(el)el.classList.add("on")}
+function setSub(t){const s=$("#sub");if(s)s.textContent=t}
+
+/* ---------- Views ---------- */
+function tableHTML(){return `<div class="tw" tabindex="0" aria-label="Conditional sentences summary table"><table><thead><tr><th>Type</th><th>Use</th><th>If clause</th><th>Main clause</th><th>Example</th></tr></thead><tbody>${TABLE.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td></tr>`).join("")}</tbody></table></div><ul class="m" style="margin:12px 0 0;padding-left:20px;display:grid;gap:4px">${NOTES.map(n=>`<li>${n}</li>`).join("")}</ul>`}
+function setNav(){$("#nav").hidden=!S.user;["lesson","report"].forEach(v=>$("#n-"+v).classList.toggle("act",view===v))}
+function render(keepScroll){const y=scrollY;stopSpeechIfLeaving();({start:vStart,home:vHome,lesson:vLesson,quiz:vQuiz,report:vReport,confirm:vConfirm})[view]();setNav();scrollTo(0,keepScroll?y:0)}
+function stopSpeechIfLeaving(){stopSpeech()}
+function go(v){view=v;render()}
+
+function vStart(){const u=S.user||{n:"",s:"",c:""};
+  app.innerHTML=`<section class="card hero">${cat(false)}<div class="bubble"><h1>Hi! I'm Copy.</h1><p style="margin-top:6px">Let's practise conditional sentences together. First, tell me who you are.</p></div></section>
+  <form class="card" id="f" novalidate style="display:grid;gap:14px">
+    <h2>Student details</h2>
+    <div><label for="fn">First name</label><input type="text" id="fn" autocomplete="given-name" value="${esc(u.n)}"></div>
+    <div><label for="sn">Surname(s)</label><input type="text" id="sn" autocomplete="family-name" value="${esc(u.s)}"></div>
+    <div><label for="co">Course (for example, 2º Bachillerato B)</label><input type="text" id="co" value="${esc(u.c)}"></div>
+    <div class="err" id="err" role="alert"></div>
+    <div><button class="btn primary" type="submit">${S.user?"Save details":"Start"}</button></div>
+  </form>`}
+function vHome(){const m=mark();
+  const lvl=l=>`<article class="card" style="display:grid;gap:12px"><div class="lvhead"><div class="num">${l}</div><div><h3>Level ${l}</h3><p class="m">${LV[l].name}</p></div></div>
+    <div class="bar" aria-hidden="true"><i style="width:${answered(l)*5}%"></i></div><p class="m">${answered(l)} of 20 answered</p>
+    <div><button class="btn primary" data-act="lv" data-v="${l}">${S.finished?"Review":answered(l)?"Continue":"Start"} Level ${l}</button></div></article>`;
+  app.innerHTML=`<section class="card hero">${cat(false)}<div class="bubble"><h1>Hello, ${esc(S.user.n)}!</h1><p style="margin-top:6px">Both levels are open. Move between questions and levels, change any answer as often as you like, and come back whenever you want.</p></div></section>
+  <article class="card tint" style="display:grid;gap:10px"><h3>Lesson with Copy</h3><p>Listen to Copy explain, in British English, how the four conditionals are formed. Then keep the summary table open while you practise.</p><div class="row"><button class="btn primary" data-act="lesson">Open the lesson</button><button class="btn soft" data-act="table">Summary table</button></div></article>
+  <div class="grid2">${lvl(1)}${lvl(2)}</div>
+  <article class="card row sp"><div><h3>Your progress</h3><p class="m">${done()?`Test finished. Your mark: <b>${m} / 10</b>`:`${answered(1)+answered(2)} of 40 answered. When you have answered all 40, press FINISH to see your mark and corrections.`}</p></div><div class="row">${done()?`<button class="btn primary" data-act="report">See report</button>`:`<button class="btn soft" data-act="report">See progress</button><button class="btn primary" data-act="finish" ${all()?"":"disabled"}>FINISH</button>`}<button class="btn soft" data-act="edit">Edit my details</button></div></article>`}
+function vLesson(){
+  app.innerHTML=`<section class="card hero" id="intro">${cat(true)}<div class="bubble"><p id="sub" aria-live="polite">${esc(INTRO)}</p><div class="row" style="margin-top:12px"><button class="btn primary" data-act="playAll">Play the whole lesson</button><button class="btn soft" data-act="stop">Stop</button></div></div></section>`+
+  LES.map(s=>`<article class="card les" id="s-${s.k}" style="display:grid;gap:10px"><div class="row sp"><h2>${s.title}</h2><button class="btn soft" data-act="seg" data-v="${s.k}">Listen</button></div>
+   ${s.form?`<div class="fm"><span>${s.form[0]}</span><em>,</em><span>${s.form[1]}</span></div>`:""}<p>${s.use}</p><p class="ex">${s.ex}</p></article>`).join("")+
+  `<section class="card" style="display:grid;gap:12px"><h2>Summary table</h2>${tableHTML()}<div class="row"><button class="btn primary" data-act="lv" data-v="1">Start Level 1</button><button class="btn soft" data-act="lv" data-v="2">Go to Level 2</button></div></section>`}
+function qText(q,l){return l===1?q.t.replace("___","blank"):q.t}
+function vQuiz(){const l=S.lv,L=LV[l],k=S.k[l],q=L.q[k],a=S.ans[l][k],o=3-l+1;
+  const stem=l===1?`<p class="stem">${esc(q.t).replace("___",'<span class="blank">&nbsp;</span>')}</p>`
+    :`<div class="quote">${esc(q.t)}</div><p>Rewrite it with <span class="chip">${esc(q.hint)}</span> or choose the sentence with the same meaning.</p>`;
+  app.innerHTML=`<section class="card" style="display:grid;gap:12px"><div class="row sp"><span class="pill s">Level ${l} · ${L.name}</span><span class="m">Question ${k+1} of 20 · ${answered(l)} answered</span></div>
+   <div class="bar" aria-hidden="true"><i style="width:${answered(l)*5}%"></i></div>
+   <div class="dots" role="group" aria-label="Jump to question">${Array.from({length:20},(_,i)=>`<button class="dot${S.ans[l][i]!==null?" has":""}${i===k?" cur":""}" data-act="jump" data-v="${i}" aria-label="Question ${i+1}${S.ans[l][i]!==null?", answered":""}">${i+1}</button>`).join("")}</div></section>
+  <section class="card" style="display:grid;gap:14px"><div class="row sp"><span class="m">${L.task}</span><button class="btn soft" data-act="listen">Listen</button></div>${stem}
+   <div class="opts" role="group" aria-label="Answers">${q.o.map((x,j)=>`<button class="opt" data-act="pick" data-v="${j}" aria-pressed="${a===j}" ${S.finished?"disabled":""}><span class="l">${"ABCD"[j]}</span><span>${esc(x.x)}</span></button>`).join("")}</div>
+   ${S.finished?`<p class="m"><b>The test is finished. Your answers are locked.</b></p>`:`<p class="m">You can change your answer as many times as you like until you press FINISH.</p>`}
+   <div class="row sp"><button class="btn soft" data-act="prev" ${k===0?"disabled":""}>Previous</button><button class="btn primary" data-act="next" ${k<19?"":"disabled"}>Next</button></div>${S.finished?`<button class="btn primary" data-act="report">See my report</button>`:`<div style="display:grid;gap:6px"><button class="btn primary" data-act="finish" ${all()?"":"disabled"}>FINISH</button><p class="m">${all()?"All 40 questions answered. Press FINISH to lock your answers and see your results.":`Answer all 40 questions to unlock FINISH (${40-answered(1)-answered(2)} left).`}</p></div>`}</section>
+  <section class="card tint row sp"><div class="row" style="flex-wrap:nowrap">${cat(true).replace('class="cat live"','class="cat live" style="width:48px;height:48px;flex:none"')}<p class="m">Need a reminder? Copy keeps the table ready.</p></div><div class="row"><button class="btn soft" data-act="table">Open table</button><button class="btn soft" data-act="lv" data-v="${l===1?2:1}">Go to Level ${l===1?2:1}</button><button class="btn soft" data-act="home">Menu</button></div></section>`}
+function fillAns(l,i){const q=LV[l].q[i];return l===1?q.t.replace("___",q.o[q.ok].x):q.o[q.ok].x}
+function vReport(){const d=done(),m=mark(),T=typeStats(),C=2*Math.PI*54,n=answered(1)+answered(2),dt=new Date().toLocaleDateString("en-GB");
+  const off=C*(1-(d?m/10:n/40));
+  const who=`<p><b>${esc(S.user.s)}, ${esc(S.user.n)}</b> · ${esc(S.user.c)}</p><p class="m">English · 2º Bachillerato · Conditional sentences · ${dt}</p>`;
+  const donut=d?`<svg class="donut" viewBox="0 0 140 140" role="img" aria-label="Final mark ${m} out of 10"><circle cx="70" cy="70" r="54" fill="none" stroke="var(--lil)" stroke-width="14"/><circle cx="70" cy="70" r="54" fill="none" stroke="var(--p)" stroke-width="14" stroke-linecap="round" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}" transform="rotate(-90 70 70)"/><text x="70" y="70" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="700" font-size="34" fill="var(--ink)">${m}</text><text x="70" y="92" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="700" font-size="14" fill="var(--muted)">out of 10</text></svg>`
+   :`<svg class="donut" viewBox="0 0 140 140" role="img" aria-label="${n} of 40 questions answered"><circle cx="70" cy="70" r="54" fill="none" stroke="var(--lil)" stroke-width="14"/><circle cx="70" cy="70" r="54" fill="none" stroke="var(--p2)" stroke-width="14" stroke-linecap="round" stroke-dasharray="${C.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}" transform="rotate(-90 70 70)"/><text x="70" y="70" text-anchor="middle" font-family="Baloo 2,sans-serif" font-weight="700" font-size="34" fill="var(--ink)">${n}</text><text x="70" y="92" text-anchor="middle" font-family="Nunito,sans-serif" font-weight="700" font-size="14" fill="var(--muted)">of 40 answered</text></svg>`;
+  const top=`<section class="card"><div class="rhero">${donut}<div style="flex:1;min-width:220px;display:grid;gap:6px"><h1>Progress report</h1>${who}<p>${d?`<span class="pill s">${band(m)}</span>`:`<span class="pill">In progress</span>`}</p></div></div></section>`;
+  if(!d){
+    const lvP=l=>`<article class="card" style="display:grid;gap:8px"><div class="row sp"><h3>Level ${l}: ${LV[l].name}</h3><span class="pill s">${answered(l)} / 20 answered</span></div><div class="bar"><i style="width:${answered(l)*5}%"></i></div>
+     <div class="map" aria-label="Question map">${S.ans[l].map((a,i)=>`<span class="sq ${a===null?"bl":"an"}" title="Question ${i+1}: ${a===null?"not answered":"answered"}">${i+1}</span>`).join("")}</div></article>`;
+    const first=S.ans[1].some(x=>x===null)?1:2;
+    app.innerHTML=`${top}${lvP(1)}${lvP(2)}<section class="card tint" style="display:grid;gap:10px"><h3>Your results are on the way</h3><p>Answer all 40 questions and press FINISH. Then you will see your mark, your results by type and your mistakes with the corrections. Your answers will be locked.</p><div class="row">${all()?`<button class="btn primary" data-act="finish">FINISH</button>`:`<button class="btn primary" data-act="lv" data-v="${first}">Continue the test</button>`}<button class="btn soft" data-act="pdf">Download PDF</button><button class="btn soft" data-act="home">Back to menu</button></div></section>`;return}
+  const lvCard=l=>`<article class="card" style="display:grid;gap:8px"><div class="row sp"><h3>Level ${l}: ${LV[l].name}</h3><span class="pill s">${right(l)} / 20 · ${(right(l)/2).toFixed(1)} / 10</span></div><div class="bar"><i style="width:${right(l)*5}%"></i></div>
+   <div class="map" aria-label="Question map">${LV[l].q.map((q,i)=>{const c=S.ans[l][i]===q.ok?"ok":"no";return `<span class="sq ${c}" title="Question ${i+1}: ${c==="ok"?"correct":"wrong"}">${i+1}</span>`}).join("")}</div></article>`;
+  const wrong=[];[1,2].forEach(l=>LV[l].q.forEach((q,i)=>{if(S.ans[l][i]!==q.ok)wrong.push([l,i])}));
+  app.innerHTML=`${top}${lvCard(1)}${lvCard(2)}
+  <section class="card"><h3>Results by conditional type</h3>${TAGKEYS.map(k=>`<div class="trow"><span>${TAGS[k]}</span><div class="bar"><i style="width:${T[k][1]?T[k][0]/T[k][1]*100:0}%"></i></div><span class="m">${T[k][0]}/${T[k][1]}</span></div>`).join("")}</section>
+  <section class="card" style="display:grid;gap:10px"><div class="leg"><span class="sq ok">1</span>Correct<span class="sq no">2</span>Wrong</div>
+   <div class="row"><button class="btn primary" data-act="pdf">Download PDF</button><button class="btn soft" data-act="corr">${showCorr?"Hide":"Show"} corrections (${wrong.length})</button><button class="btn soft" data-act="home">Back to menu</button></div>
+   ${showCorr?(wrong.length?`<p class="m">These are the questions you got wrong, with the correct answers.</p>`+wrong.map(([l,i])=>{const a=S.ans[l][i],q=LV[l].q[i];return `<div class="corr"><p><b>Level ${l} · Question ${i+1}</b> <span class="pill">${TAGS[q.tag]}</span></p>${l===2?`<p class="m">Original: ${esc(q.t)}</p>`:""}<p>Your answer: ${esc(l===1?q.t.replace("___",q.o[a].x):q.o[a].x)}</p><p><b>Correct:</b> ${esc(fillAns(l,i))}</p></div>`}).join(""):`<p>No mistakes. Well done!</p>`):""}</section>`}
+
+function vConfirm(){
+  app.innerHTML=`<section class="card hero">${cat(false)}<div class="bubble"><h1>Ready to finish?</h1><p style="margin-top:6px">Once you press FINISH, your answers are locked and you cannot change them. Then you will see your mark and your corrections.</p><div class="row" style="margin-top:12px"><button class="btn primary" data-act="finishYes">Yes, FINISH</button><button class="btn soft" data-act="home">Go back</button></div></div></section>`}
+function vocabHTML(){return `<div class="vg">${VOC.map(w=>`<div class="w"><div><b>${w[0]}</b><span class="m">${w[1]}</span></div><button class="btn soft" data-act="say" data-v="${esc(w[0])}" aria-label="Listen to ${esc(w[0])}">Listen</button></div>`).join("")}</div>`}
+function openDrawer(t){$("#ov").hidden=false;tab(t)}
+function tab(t){$("#dbody").innerHTML=t==="w"?vocabHTML():tableHTML();$("#dt").textContent=t==="w"?"Vocabulary":"Summary table";
+  ["t","w"].forEach(k=>$("#tab-"+k).setAttribute("aria-selected",k===t))}
+
+/* ---------- PDF ---------- */
+async function makePDF(){
+  if(!S.user){toast("Please enter your details first.");return}
+  if(!window.jspdf){toast("The PDF tool did not load. Check your connection and try again.");return}
+  const D=new window.jspdf.jsPDF({unit:"mm",format:"a4"});
+  const P=[109,63,201],LI=[232,222,251],INK=[42,31,69],GD=[90,51,179],BD=[194,58,104],BL=[201,191,224],MU=[102,90,133];
+  let y=0;const tx=(t,x,s,b,c,al)=>{D.setFont("helvetica",b?"bold":"normal");D.setFontSize(s);D.setTextColor(...(c||INK));D.text(String(t),x,y,al?{align:al}:undefined)};
+  const need=h=>{if(y+h>284){D.addPage();y=18}};
+  const bar=(x,w,p,col)=>{D.setFillColor(...LI);D.roundedRect(x,y,w,3.6,1.8,1.8,"F");if(p>0){D.setFillColor(...col);D.roundedRect(x,y,Math.max(w*p,3.6),3.6,1.8,1.8,"F")}};
+  const fin=done(),m=mark(),T=typeStats(),n=answered(1)+answered(2);
+  D.setFillColor(...P);D.rect(0,0,210,34,"F");D.setFillColor(255,217,240);D.rect(0,34,210,2.5,"F");
+  y=16;tx("2BACH Conditional sentences",14,20,1,[255,255,255]);y=25;tx("Progress report · English · 2º Bachillerato",14,11,0,[240,232,255]);
+  y=47;tx(`Student: ${S.user.s}, ${S.user.n}`,14,13,1);y+=6.5;tx(`Course: ${S.user.c}`,14,11);tx(`Date: ${new Date().toLocaleDateString("en-GB")}`,196,11,0,MU,"right");
+  if(!fin){
+    y+=14;tx("IN PROGRESS",14,10,1,MU);y+=11;tx(`${n} / 40 answered`,14,24,1,GD);y+=6;bar(14,182,n/40,P);y+=14;
+    [1,2].forEach(l=>{tx(`Level ${l}: ${LV[l].name}`,14,12,1);tx(`${answered(l)} / 20 answered`,196,11,1,GD,"right");y+=4.5;bar(14,182,answered(l)/20,P);y+=12});
+    D.setFont("helvetica","normal");D.setFontSize(10);D.setTextColor(...MU);
+    D.splitTextToSize("The final mark, the results by type and the mistakes appear in this report when you press FINISH after answering all 40 questions.",182).forEach(s=>{D.text(s,14,y);y+=5})
+  }else{
+    y+=14;tx("FINAL MARK",14,10,1,MU);y+=11;tx(`${m} / 10`,14,26,1,GD);tx(band(m),196,14,1,P,"right");y+=5;bar(14,182,m/10,P);y+=14;
+    [1,2].forEach(l=>{need(22);tx(`Level ${l}: ${LV[l].name}`,14,12,1);tx(`${right(l)} / 20  ·  ${(right(l)/2).toFixed(1)} / 10`,196,11,1,GD,"right");y+=4.5;bar(14,182,right(l)/20,P);y+=12});
+    need(40);tx("Results by conditional type",14,12,1);y+=7;
+    TAGKEYS.forEach(k=>{tx(TAGS[k],14,10);y-=3;bar(40,120,T[k][1]?T[k][0]/T[k][1]:0,P);y+=3;tx(`${T[k][0]} / ${T[k][1]}`,196,10,1,INK,"right");y+=7});
+    y+=4;[1,2].forEach(l=>{need(30);tx(`Question map · Level ${l}`,14,12,1);y+=5;
+      LV[l].q.forEach((q,i)=>{const c=S.ans[l][i]===q.ok?GD:BD,x=14+i*9.1;D.setFillColor(...c);D.roundedRect(x,y,8,8,1.6,1.6,"F");tx(i+1,x+4,8,1,[255,255,255],"center")});
+      y+=15});
+    tx("Dark violet = correct · Pink = wrong",14,8.5,0,MU);y+=10;
+    const wrong=[];[1,2].forEach(l=>LV[l].q.forEach((q,i)=>{if(S.ans[l][i]!==q.ok)wrong.push([l,i])}));
+    need(16);tx(`Corrections (${wrong.length})`,14,12,1);y+=6;
+    if(!wrong.length){tx("No mistakes. Well done!",14,10);y+=6}
+    wrong.forEach(([l,i])=>{const q=LV[l].q[i],a=S.ans[l][i];
+      const mine=l===1?q.t.replace("___",q.o[a].x):q.o[a].x;
+      const lines=[...(l===2?D.splitTextToSize("Original: "+q.t,172):[]),...D.splitTextToSize("Your answer: "+mine,172),...D.splitTextToSize("Correct: "+fillAns(l,i),172)];
+      need(lines.length*4.4+9);tx(`Level ${l} · Question ${i+1}  (${TAGS[q.tag]})`,14,9.5,1,GD);y+=4.6;
+      D.setFont("helvetica","normal");D.setFontSize(9);D.setTextColor(...INK);lines.forEach(s=>{D.text(s,18,y);y+=4.4});y+=2.5})}
+  const clean=s=>String(s).normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/[^A-Za-z0-9]+/g,"_").replace(/^_|_$/g,"");
+  const filename=`2BACH_Conditionals_${clean(S.user.s)}_${clean(S.user.n)}${fin?"":"_in_progress"}.pdf`;
+  try{const dl=await claude.use("downloads");
+    if(dl){await dl.save({filename,data:new Uint8Array(D.output("arraybuffer"))});toast("PDF ready.")}
+    else toast("Downloads are not available in this view.")}
+  catch(e){if(!e||e.code!=="declined")toast("The PDF could not be saved.")}}
+
+/* ---------- Actions ---------- */
+const ACT={
+  home(){go(S.user?"home":"start")},lesson(){go("lesson")},report(){showCorr=false;go("report")},
+  table(){openDrawer("t")},words(){openDrawer("w")},close(){$("#ov").hidden=true},tab(v){tab(v)},
+  pdf(){makePDF()},edit(){go("start")},
+  lv(v){S.lv=+v;save();$("#ov").hidden=true;go("quiz")},
+  finish(){if(!all()){toast("Answer all 40 questions first.");return}go("confirm")},
+  finishYes(){if(!all())return;S.finished=true;showCorr=true;save();go("report")},
+  pick(v){if(S.finished)return;S.ans[S.lv][S.k[S.lv]]=+v;save();render(true)},
+  jump(v){S.k[S.lv]=+v;save();render()},
+  prev(){S.k[S.lv]=Math.max(0,S.k[S.lv]-1);save();render()},
+  next(){S.k[S.lv]=Math.min(19,S.k[S.lv]+1);save();render()},
+  corr(){showCorr=!showCorr;render(true)},
+  listen(){const q=LV[S.lv].q[S.k[S.lv]];speak(qText(q,S.lv))},
+  say(v){speak(v)},stop(){stopSpeech();setSub("Okay, I'll wait here. Press play when you're ready.")},
+  playAll(){playSeg(0,true)},
+  seg(v){const s=LES.find(x=>x.k===v);setSub(s.say);speak(s.say);const el=$("#s-"+v);document.querySelectorAll(".les.on").forEach(x=>x.classList.remove("on"));el.classList.add("on")}
+};
+document.addEventListener("click",e=>{const b=e.target.closest("[data-act]");if(b&&ACT[b.dataset.act])ACT[b.dataset.act](b.dataset.v);
+  if(e.target.id==="ov")ACT.close()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("#ov").hidden)ACT.close()});
+document.addEventListener("submit",e=>{if(e.target.id!=="f")return;e.preventDefault();
+  const n=$("#fn").value.trim(),s=$("#sn").value.trim(),c=$("#co").value.trim();
+  if(!n||!s||!c){$("#err").textContent="Please write your first name, your surname(s) and your course.";return}
+  S.user={n,s,c};save();go("home")});
+window.addEventListener("pagehide",stopSpeech);
+render();
+</script>
+
+</body></html>
